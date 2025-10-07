@@ -2,7 +2,7 @@
     "rewrites": [
         {
             "source": "/api/(.*)",
-            "destination": "https://simo-api.squareweb.app/api/$1"
+            "destination": "https://api-simo.squareweb.app/api/$1"
         },
         {
             "source": "/(.*)",
