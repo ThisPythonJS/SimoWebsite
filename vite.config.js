@@ -6,7 +6,7 @@ export default defineConfig({
     host: "0.0.0.0",
     proxy: {
       "/api": {
-        target: "https://api-simo.squareweb.app",
+        target: "https://api-simo.squareweb.app/api",
         changeOrigin: true,
         secure: true,
         ws: true,
@@ -17,7 +17,7 @@ export default defineConfig({
     allowedHosts: ["simo.squareweb.app"],
     proxy: {
       "/api": {
-        target: "https://api-simo.squareweb.app",
+        target: "https://api-simo.squareweb.app/api",
         changeOrigin: true,
         secure: true,
         ws: true,
