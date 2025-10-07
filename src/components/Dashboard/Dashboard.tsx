@@ -100,7 +100,7 @@ export const DashboardComponent: FC = () => {
                     <div className="flex flex-col justify-center gap-1 z-2 relative px-3 pb-4">
                         <strong>{user.username}</strong>
                         <span className="text-[#797979] items-center flex text-[13px]">
-                            ( {user.id} )
+                        <strong>{user.id}</strong>
                         </span>
                         {editActions.bio && <span className="mt-5">{editActions.bio}</span>}
                     </div>
