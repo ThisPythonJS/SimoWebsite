@@ -15,7 +15,7 @@ export default defineConfig({
     },
   },
   preview: {
-    allowedHosts: ["simo.squareweb.app"],
+    allowedHosts: ["simo.squareweb.app", "api-simo.squareweb.app"],
   },
   plugins: [react()],
 });
