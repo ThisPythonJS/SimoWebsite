@@ -10,7 +10,7 @@ export const Footer: React.FC = () => {
                     <div className="text-white flex flex-row xl:flex-col items-center text-center justify-center text-[32px] mx-10 my-3 xl:mx-0">
                         <strong>Simo</strong>
                         <div className="bg-white w-[30px] h-[1px] mx-[20px] xl:invisible"></div>
-                        <span className="text-[18px] text-[#c5c5c5]">Uma botlist muito daora e bonita</span>
+                        <span className="text-[18px] text-[#c5c5c5]">Uma botlist para desenvolvedores que querem divulgar seu projeto. Descarte já as botlists despromissoras. Venha ser um <strong>SIMO</strong>!</span>
                     </div>
                     <section className="flex flex-row items-center justify-end flex-grow xl:flex-grow-0 mx-10 my-3">
                         <div className="flex flex-col">
