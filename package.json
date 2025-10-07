@@ -1,7 +1,7 @@
 {
-    "name": "botlist-website",
+    "name": "simo-website",
     "private": true,
-    "version": "0.0.0",
+    "version": "1.0.0",
     "type": "module",
     "proxy": "http://localhost:80",
     "scripts": {
@@ -14,7 +14,6 @@
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@headlessui/react": "^1.7.17",
-        "@simo.js/rest": "^1.0.4",
         "axios": "^1.4.0",
         "dotenv": "^16.0.3",
         "framer-motion": "^10.16.14",
@@ -27,10 +26,11 @@
         "react-icons": "^4.10.1",
         "react-markdown": "^8.0.7",
         "react-router-dom": "^6.11.2",
-        "translate": "^2.0.2"
+        "translate": "^2.0.2",
+        "tsx": "^4.20.6",
+        "vite": "^4.2.0"
     },
     "devDependencies": {
-        "@simo.js/simo-api-types": "^1.0.8",
         "@tailwindcss/typography": "^0.5.9",
         "@types/axios": "^0.14.0",
         "@types/js-cookie": "^3.0.3",
