@@ -113,9 +113,9 @@ export const FindBot: React.FC<{
                         <div className="text-white xl:w-[88vw] xl:flex-col flex-row flex">
                             <div className="w-[700px] xl:w-full break-words flex-col flex mr-2">
                                 <div className="text-center">
-                                    <strong>ID</strong>
+                                    <strong>Informe o ID</strong>
                                 </div>
-                                <span className="text-center">Digite o id do bot que deseja ser enviado a análise.</span>
+                                <span className="text-center">Digite o ID da Aplicação que deseja ser enviado a análise.</span>
                             </div>
                             <div className="flex flex-col items-center w-full">
                                 <div className={`justify-center flex outline-none bg-[#2c2c2c] w-full h-[60px] rounded-xl p-3 border-[2px] transition-all duration-100  border-[#8b8b8b] hover:border-neutral-200 focus-within:border-white text-white`}>
