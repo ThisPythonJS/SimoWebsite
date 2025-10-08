@@ -27,8 +27,8 @@ export const Bot: React.FC = () => {
     botData?.short_description ??
     "Descubra e apresente projetos incríveis na Simo Botlist!";
   const image = botData
-    ? `https://api-simo.squareweb.app/api/bots/${botData.id}/og`
-    : `https://simo-botlist.vercel.app/api/bots/${botData.id}/og`;
+    ? `https://api-simo.squareweb.app/api/bots/${botData.id}/banner`
+    : `https://simo-botlist.vercel.app/api/bots/${botData.id}/banner`;
 
   return (
     <>
