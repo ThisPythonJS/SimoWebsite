@@ -47,7 +47,7 @@ export const Bot: React.FC = () => {
         <meta name="twitter:image" content={image} />
       </Helmet>
 
-      <BotComponent bot={botData} />
+      <BotComponent />
     </>
   );
 };
