@@ -12,6 +12,7 @@ export const Bot: React.FC = () => {
   useEffect(() => {
     const fetchBot = async () => {
       try {
+        if (!id) return;
         const { data } = await api.get(`/bots/${id}`);
         setBotData(data);
       } catch (err) {
@@ -19,16 +20,16 @@ export const Bot: React.FC = () => {
       }
     };
 
-    if (id) fetchBot();
+    fetchBot();
   }, [id]);
 
-  const name = botData?.name ?? "Simo Botlist - Bot";
+  const name = `Simo Botlist - ${botData?.name}`;
   const description =
     botData?.short_description ??
-    "Descubra e apresente projetos incríveis na Simo Botlist!";
+    "⚡ Divulgue seu bot na Simo Botlist, para desenvolvedores que querem impulsionar o seu projeto.";
   const image = botData
-    ? `https://api-simo.squareweb.app/api/bots/${botData.id}/banner`
-    : `https://simo-botlist.vercel.app/api/bots/${botData.id}/banner`;
+    ? `https://api-simo.squareweb.app/api/banner_bot/${botData.id}`
+    : undefined;
 
   return (
     <>
@@ -37,14 +38,14 @@ export const Bot: React.FC = () => {
         <meta property="og:title" content={name} />
         <meta property="og:description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={image} />
+        {image && <meta property="og:image" content={image} />}
         <meta property="og:url" content={`https://simo-botlist.vercel.app/bot/${id}`} />
-          
+
         <meta name="theme-color" content="#4169E1" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={name} />
         <meta name="twitter:description" content={description} />
-        <meta name="twitter:image" content={image} />
+        {image && <meta name="twitter:image" content={image} />}
       </Helmet>
 
       <BotComponent />
