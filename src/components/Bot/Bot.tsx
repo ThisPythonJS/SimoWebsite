@@ -61,7 +61,7 @@ export const BotComponent: FC = () => {
                 <div className="fixed flex items-center justify-center backdrop-blur-sm inset-0">
                     <div className="flex gap-3 items-center justify-center flex-col w-full h-[150px] border-2 rounded-lg bg-[#e8a60c] border-[#9e7514]">
                         <icon.BsClockFill size={35} />
-                        <span className="text-lg text-center px-2">Bot {botData.name} está em análise, aguarde até que ela seja finalizada.</span>
+                        <span className="text-lg text-center px-2">A aplicação {botData.name} está em análise, aguarde até que ela seja finalizada.</span>
                     </div>
                 </div>
             )}
@@ -101,7 +101,7 @@ export const BotComponent: FC = () => {
                                 </Link>
                                 <Link
                                     className="border-2 border-neutral-700 bg-neutral-900 text-white hover:bg-neutral-700 transition-colors duration-300 p-2 rounded-md w-[120px] text-center"
-                                    to={`https://discord.com/api/oauth2/authorize?client_id=${botData.id}&permissions=70368744177655&scope=bot%20applications.commands`}
+                                    to={`https://discord.com/api/oauth2/authorize?client_id=${botData.id}`}
                                 >
                                     <span>Adicionar</span>
                                 </Link>
@@ -119,7 +119,7 @@ export const BotComponent: FC = () => {
                         <div className="flex flex-col gap-5 text-white px-5 w-[50%] xl:w-full">
                             <div className="w-full">
                                 <div className="w-full">
-                                    <h1 className="text-2xl text-center">Developer</h1>
+                                    <h1 className="text-2xl text-center">Desenvolvedor</h1>
                                     <hr className="my-4 w-full" />
                                     <div className="grid grid-cols-2 gap-4">
                                         <Link to={`/user/${dev?.id}`} className="border-2 border-neutral-800 p-2 rounded-lg flex flex-row flex-wrap justify-center xl:flex-col items-center gap-4 transition-colors duration-300 hover:bg-neutral-800">
