@@ -28,9 +28,6 @@ export const Mobilemenu: React.FC = () => {
         <div className={`hidden xl:fixed xl:bottom-0 xl:left-0 xl:w-full transition-colors duration-300 ${mobileMenu[color]} xl:text-white xl:py-3 xl:flex xl:justify-around xl:items-center`}>
             <>
                 <section className="flex flex-row w-full items-center">
-                    <Link onClick={() => setClick(!click)} to= "/" className="flex flex-grow justify-center">
-                        {selPage === "/" ? <icon.BiHouse size={25} /> : <icon.BiHouse size={25} />}
-                    </Link>
                     <Link onClick={() => setClick(!click)} to="/notifications" className="flex flex-grow justify-center">
                         {selPage === "notifications" ? <icon.BiSolidBell size={25} /> : <icon.BiBell size={25} />}
                     </Link>
