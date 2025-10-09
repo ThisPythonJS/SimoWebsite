@@ -5,7 +5,7 @@ import { InputSearch } from "../Search/InputSearch";
 import { Link } from "react-router-dom";
 import { NotificationButton } from "../Notification/Button";
 import { LoginMenu } from "../DropdownMenu/Menu";
-import logo from "../../assets/images/simo-transparente.png";
+import "./index.css";
 
 export const Header: React.FC = () => {
     const [inputSearch, setInputSearch] = useState<boolean>(false);
@@ -19,11 +19,9 @@ export const Header: React.FC = () => {
                             to="/" 
                             className="flex flex-grow flex-row items-center justify-center mx-10 my-3 xl:mx-0 xl:my-1 xl:w-full xl:h-full xl:ml-6"
                         >
-                            <img 
-                                src={logo} 
-                                alt="Simo Logo" 
-                                className="h-10 xl:h-8 w-auto object-contain" 
-                            />
+                            <h1 className="font-boldonse text-gradient text-4xl xl:text-3xl tracking-wide select-none">
+                                Simo
+                            </h1>
                         </Link>
 
                         <Button 
