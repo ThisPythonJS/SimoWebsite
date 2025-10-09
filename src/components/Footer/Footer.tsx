@@ -1,25 +1,57 @@
-import React from "react";
-import * as icon from 'react-icons/bs';
+import react from "react";
+import * as icon from "react-icons/bs";
 
 export const Footer: React.FC = () => {
     return (
         <>
-            <hr className="w-screen border-neutral-500" />
-            <footer className="flex items-center justify-center w-screen max-w-[1500px]">
-                <div className="w-full h-[90px] xl:h-[150px] text-white flex xl:flex-col items-center xl:mb-[70px] justify-center">
-                    <div className="text-white flex flex-row xl:flex-col items-center text-center justify-center text-[32px] mx-10 my-3 xl:mx-0">
-                        <strong>Simo Botlist</strong>
-                        <div className="bg-white w-[30px] h-[1px] mx-[20px] xl:invisible"></div>
-                        <span className="text-[18px] text-[#c5c5c5]">Uma botlist para desenvolvedores que querem divulgar seu projeto.</span>
-                    </div>
-                    <section className="flex flex-row items-center justify-end flex-grow xl:flex-grow-0 mx-10 my-3">
-                        <div className="flex flex-col">
-                            <div className="grid grid-cols-2 gap-[25px] text-[#b9b9b9]">
-                                <a href="https://github.com/ThisPythonJS/SimoWebsite" target="_blank"><icon.BsGithub className="hover:-translate-y-[6px] hover:fill-white cursor-pointer transition-all duration-300" size={35} /></a>
-                                <a href="https://discord.gg/39gpCkE5Nk" target="_blank"><icon.BsDiscord className="hover:-translate-y-[6px] hover:fill-[#5165F5] cursor-pointer transition-all duration-300" size={35} /></a>
+            <footer className="w-screen bg-gradient-to-br from-[#1a1a2e] via-[#16213e] to-[#0f1419] border-t border-white/5 backdrop-blur-sm">
+                <div className="max-w-[1500px] mx-auto px-6 py-12 xl:py-20">
+                    <div className="flex flex-col xl:flex-row items-center xl:items-start justify-between gap-12 mb-12">
+                        <div className="flex flex-col items-center xl:items-start text-center xl:text-left max-w-md">
+                            <h2 className="text-4xl xl:text-5xl font-bold bg-gradient-to-r from-[#00ffff] to-[#00b4d8] bg-clip-text text-transparent mb-4">
+                                Simo Botlist
+                            </h2>
+                            <p className="text-gray-400 text-lg leading-relaxed">
+                                Uma botlist para desenvolvedores que querem divulgar seu projeto.
+                            </p>
+                        </div>
+                        <div className="flex flex-col xl:flex-row gap-12 xl:gap-20">
+                            <div className="text-center xl:text-left">
+                                <h3 className="text-white font-semibold text-lg mb-4">Links Rápidos</h3>
+                                <ul className="space-y-3 text-gray-400">
+                                    <li><a href="/" className="hover:text-blue-400 transition-colors duration-300">Início</a></li>
+                                    <li><a href="/" className="hover:text-blue-400 transition-colors duration-300">Bots</a></li>
+                                    <li><a href="/addbot" className="hover:text-blue-400 transition-colors duration-300">Adicionar Bot</a></li>
+                                </ul>
+                            </div>
+                            <div className="text-center xl:text-left">
+                                <h3 className="text-white font-semibold text-lg mb-4">Comunidade</h3>
+                                <div className="flex gap-4 justify-center xl:justify-start">
+                                    <a 
+                                        href="https://github.com/ThisPythonJS/SimoWebsite" 
+                                        target="_blank"
+                                        className="group relative p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                                    >
+                                        <icon.BsGithub className="text-gray-400 group-hover:text-white transition-colors duration-300" size={28} />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-purple-500/20 to-blue-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg"></div>
+                                    </a>
+                                    <a 
+                                        href="https://discord.gg/39gpCkE5Nk" 
+                                        target="_blank"
+                                        className="group relative p-3 bg-white/5 rounded-xl hover:bg-white/10 transition-all duration-300 hover:scale-110 hover:-translate-y-1"
+                                    >
+                                        <icon.BsDiscord className="text-gray-400 group-hover:text-[#5165F5] transition-colors duration-300" size={28} />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-[#5165F5]/20 to-purple-500/20 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-lg"></div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </section>
+                    </div>
+                    <div className="pt-8 border-t border-white/5">
+                        <div className="flex flex-col xl:flex-row items-center justify-between gap-4 text-gray-500 text-sm">
+                            <p>© 2025 Simo Botlist. Todos os direitos reservados.</p>
+                        </div>
+                    </div>
                 </div>
             </footer>
         </>
