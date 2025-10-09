@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Boldonse&display=swap');
+
+.font-boldonse {
+  font-family: 'Boldonse', sans-serif;
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, #00ffff, #00b4d8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
