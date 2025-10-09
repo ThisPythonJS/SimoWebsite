@@ -8,6 +8,9 @@ import { Markdown } from "../../components/Markdown/Markdown";
 import { borderAndBg } from "../../utils/theme/border&bg";
 import { borderColor } from "../../utils/theme/border";
 import * as icon from "react-icons/bs";
+import { TiArrowSortedUp } from "react-icons/ti";
+import { FiUser, FiUsers, FiHash, FiTag, FiExternalLink } from "react-icons/fi";
+import { HiOutlineInformationCircle } from "react-icons/hi";
 import { BotLoading } from "./BotLoading";
 import { CopyButton } from "../Mixed/Copy";
 
@@ -32,17 +35,14 @@ export const BotComponent: FC = () => {
     const getBotData = async () => {
         try {
             const { data: { owner_id }, data } = await api.getBotInfos(botid);
-
             const { data: { username, avatar, id } } = await api.getUserFromDB(owner_id);
 
             if (data.team_id) {
                 const team = await api.getTeam(data.team_id as string);
-
                 setTeam(!team.data ? null : team.data);
             }
 
             setDev({ username, avatar, id });
-
             setBotData(data);
         } catch (error) {
             console.error(error);
@@ -56,146 +56,284 @@ export const BotComponent: FC = () => {
     }, []);
 
     return botData ? (
-        <section className="max-w-[1500px] w-screen">
+        <section className="max-w-[1500px] w-full px-4 xl:px-3 mb-10">
             {!botData.approved && (
-                <div className="fixed flex items-center justify-center backdrop-blur-sm inset-0">
-                    <div className="flex gap-3 items-center justify-center flex-col w-full h-[150px] border-2 rounded-lg bg-[#e8a60c] border-[#9e7514]">
-                        <icon.BsClockFill size={35} />
-                        <span className="text-lg text-center px-2">A aplicação {botData.name} está em análise, aguarde até que ela seja finalizada.</span>
+                <div className="fixed flex items-center justify-center backdrop-blur-md inset-0 z-50 bg-black/60">
+                    <div className="relative flex gap-5 items-center justify-center flex-col w-[90%] max-w-lg p-10 rounded-3xl bg-gradient-to-br from-[#f59e0b] via-[#d97706] to-[#b45309] shadow-2xl shadow-orange-600/40 border-2 border-orange-400/30">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
+                        <div className="relative">
+                            <icon.BsClockFill size={50} className="text-white drop-shadow-lg" />
+                            <div className="absolute inset-0 bg-white/40 blur-2xl rounded-full animate-pulse"></div>
+                        </div>
+                        <div className="relative flex flex-col gap-2 items-center">
+                            <span className="text-2xl text-center text-white font-bold">
+                                Bot <span className="text-yellow-100">{botData.name}</span> em análise
+                            </span>
+                            <p className="text-white/90 text-center">Aguarde a aprovação da equipe</p>
+                        </div>
                     </div>
                 </div>
             )}
-            <div className="flex flex-col items-center justify-center">
-                <section className="flex items-center xl:flex-col justify-center w-full xl:mt-2 mt-[30px] text-white">
-                    <div className={`bg-neutral-900 rounded-xl flex xl:flex-col xl:h-[320px] h-[120px] w-[95%] border-2 ${borderColor[color]} items-center justify-center`}>
-                        <img
-                            className="w-[100px] h-[100px] xl:my-2 rounded-full xl:float-none ml-2"
-                            onError={async ({ currentTarget }) => {
-                                currentTarget.onerror = null;
-                                currentTarget.src = (await import("../../assets/images/simo.png")).default;
-                            }}
-                            src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png`}
-                            alt={botData.name + "'s Avatar"}
-                        />
-                        <div className="flex flex-col w-full justify-center gap-2">
-                            <div className="ml-6 xl:m-0 xl:my-1 text-white flex xl:justify-center xl:items-center flex-row gap-3 text-[26px]">
-                                <strong>{botData.name}</strong>
+
+            <div className="flex flex-col items-center gap-6 my-8">
+                <div className="relative w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-[#00b4d8]/10">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,255,255,0.08),transparent_70%)]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e1a] via-[#0f1419] to-[#080c14]"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#00ffff]/5 rounded-full blur-3xl"></div>
+                    
+                    <div className="relative z-10 flex flex-col items-center text-center gap-5 p-8 xl:p-6">
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] rounded-3xl blur-lg opacity-50 group-hover:opacity-70 transition-all duration-500 animate-pulse"></div>
+                            <img
+                                className="relative w-28 h-28 xl:w-24 xl:h-24 rounded-3xl border-3 border-[#00b4d8]/50 shadow-2xl group-hover:scale-105 transition-all duration-500"
+                                onError={async ({ currentTarget }) => {
+                                    currentTarget.onerror = null;
+                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                }}
+                                src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png?size=256`}
+                                alt={botData.name}
+                            />
+                        </div>
+
+                        <div className="flex flex-col gap-3 items-center">
+                            <div className="flex items-center gap-3 flex-wrap justify-center">
+                                <h1 className="text-4xl xl:text-3xl font-black bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] bg-clip-text text-transparent">
+                                    {botData.name}
+                                </h1>
                                 <CopyButton name="ID" text={botData.id} key={Math.random()}/>
                             </div>
-                            <div className="flex mx-6 xl:justify-center xl:m-1 flex-row gap-1">
+
+                            <div className="flex items-center gap-2 bg-gradient-to-r from-amber-500/15 via-yellow-500/15 to-orange-500/15 backdrop-blur-xl px-4 py-2 rounded-full border border-yellow-500/30 shadow-lg shadow-yellow-500/10">
                                 {Array(stars).fill(0).map((_, index) => (
-                                    <icon.BsStarFill key={index} />
+                                    <icon.BsStarFill key={index} className="text-yellow-400 text-base" />
                                 ))}
                                 {Array(5 - stars).fill(0).map((_, index) => (
-                                    <icon.BsStar key={index} />
+                                    <icon.BsStar key={index} className="text-gray-600 text-base" />
                                 ))}
+                                <span className="text-yellow-400 font-bold text-sm ml-1">{stars}.0</span>
                             </div>
+
+                            <p className="text-gray-400 text-base leading-relaxed max-w-2xl">
+                                {botData.short_description}
+                            </p>
                         </div>
-                        <div className="flex w-full justify-end ">
-                            <div className="flex gap-4 items-center justify-center xl:w-screen flex-row m-4">
-                                <Link
-                                    className="border-2 border-neutral-700 bg-neutral-900 text-white hover:bg-neutral-700 transition-colors duration-300 p-2 rounded-md w-[120px] text-center"
-                                    to={`/vote/${botData.id}`}
-                                >
-                                    <span>Votar</span>
-                                </Link>
-                                <Link
-                                    className="border-2 border-neutral-700 bg-neutral-900 text-white hover:bg-neutral-700 transition-colors duration-300 p-2 rounded-md w-[120px] text-center"
-                                    to={`https://discord.com/api/oauth2/authorize?client_id=${botData.id}`}
-                                >
-                                    <span>Adicionar</span>
-                                </Link>
-                            </div>
+
+                        <div className="flex flex-row gap-3 w-full max-w-md">
+                            <Link
+                                className="group relative overflow-hidden border-2 border-[#00ffff]/40 bg-gradient-to-br from-[#00ffff]/15 via-[#00d4ff]/10 to-[#00b4d8]/15 text-white font-bold transition-all duration-300 px-6 py-3 rounded-xl flex-1 text-center hover:scale-105 hover:shadow-lg hover:shadow-[#00ffff]/30 active:scale-95 hover:border-[#00ffff]/60"
+                                to={`/vote/${botData.id}`}
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/10 to-[#00b4d8]/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                                <span className="relative z-10 flex items-center justify-center gap-2 text-sm">
+                                    <TiArrowSortedUp size={20} className="text-[#00ffff]" />
+                                    Votar
+                                </span>
+                            </Link>
+                            <Link
+                                className="group relative overflow-hidden border-2 border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 text-white font-bold transition-all duration-300 px-6 py-3 rounded-xl flex-1 text-center hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-95 backdrop-blur-sm"
+                                to={`https://discord.com/api/oauth2/authorize?client_id=${botData.id}`}
+                            >
+                                <span className="relative z-10 flex items-center justify-center gap-2 text-sm">
+                                    <icon.BsPlus size={20} />
+                                    Adicionar
+                                </span>
+                            </Link>
                         </div>
                     </div>
-                </section>
-                <section className={`w-[90%] mb-5 bg-neutral-900 border-2 ${borderColor[color]} border-t-0 rounded-t-none rounded-lg p-10 xl:p-3`}>
-                    <div className="flex flex-row xl:flex-col">
-                        <div className="w-[80%] xl:w-full flex break-words xl:justify-center p-2">
+                </div>
+
+                <div className="w-full grid lg:grid-cols-[1fr_380px] xl:grid-cols-1 gap-6">
+                    <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-8 xl:p-5 shadow-2xl overflow-hidden">
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
+                        <div className="relative prose prose-invert prose-base max-w-none">
                             <Markdown markdown={botData.long_description} />
                         </div>
-                        <div className="w-[1px] bg-[#8b8b8b]" />
-                        <hr className="xl:my-4 xl:w-full" />
-                        <div className="flex flex-col gap-5 text-white px-5 w-[50%] xl:w-full">
-                            <div className="w-full">
-                                <div className="w-full">
-                                    <h1 className="text-2xl text-center">Desenvolvedor</h1>
-                                    <hr className="my-4 w-full" />
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <Link to={`/user/${dev?.id}`} className="border-2 border-neutral-800 p-2 rounded-lg flex flex-row flex-wrap justify-center xl:flex-col items-center gap-4 transition-colors duration-300 hover:bg-neutral-800">
-                                            <img onError={async ({ currentTarget }) => {
+                    </div>
+
+                    <div className="flex flex-col gap-5">
+                        <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#00ffff]/5 rounded-full blur-2xl"></div>
+                            <div className="relative flex items-center gap-3 mb-5">
+                                <div className="p-2.5 bg-gradient-to-br from-[#00ffff]/25 to-[#00b4d8]/25 rounded-xl shadow-lg shadow-[#00ffff]/10">
+                                    <FiUser className="text-[#00ffff]" size={20} />
+                                </div>
+                                <h2 className="text-xl font-bold text-white">Desenvolvedor</h2>
+                            </div>
+                            <Link 
+                                to={`/user/${dev?.id}`} 
+                                className="relative group block border border-white/10 hover:border-[#00b4d8]/50 bg-white/5 hover:bg-[#00b4d8]/10 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] overflow-hidden"
+                            >
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/5 to-[#00b4d8]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div className="relative flex items-center gap-4">
+                                    <div className="relative">
+                                        <img 
+                                            onError={async ({ currentTarget }) => {
                                                 currentTarget.onerror = null;
                                                 currentTarget.src = (await import("../../assets/images/simo.png")).default;
-                                            }} className="rounded-full h-[60px] w-[60px]" src={`https://cdn.discordapp.com/avatars/${dev?.id}/${dev?.avatar}.png?size=2048`} alt={`${dev?.username}'s Avatar`} />
-                                            <span className="text-center">{dev?.username}</span>
-                                        </Link>
+                                            }} 
+                                            className="rounded-xl h-14 w-14 border-2 border-[#00b4d8]/30 group-hover:border-[#00ffff]/50 transition-all shadow-lg" 
+                                            src={`https://cdn.discordapp.com/avatars/${dev?.id}/${dev?.avatar}.png?size=128`} 
+                                            alt={dev?.username} 
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff]/20 to-[#00b4d8]/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
+                                    </div>
+                                    <div className="flex flex-col gap-0.5">
+                                        <span className="text-white font-bold text-base group-hover:text-[#00ffff] transition-colors">{dev?.username}</span>
+                                        <span className="text-gray-400 text-xs font-medium">Criador do bot</span>
+                                    </div>
+                                </div>
+                            </Link>
+                        </div>
+
+                        {team && (
+                            <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#00b4d8]/5 rounded-full blur-2xl"></div>
+                                <div className="relative flex items-center gap-3 mb-5">
+                                    <div className="p-2.5 bg-gradient-to-br from-[#00ffff]/25 to-[#00b4d8]/25 rounded-xl shadow-lg shadow-[#00ffff]/10">
+                                        <FiUsers className="text-[#00ffff]" size={20} />
+                                    </div>
+                                    <h2 className="text-xl font-bold text-white">Time</h2>
+                                </div>
+                                <Link 
+                                    to={`/team/${team.id}`} 
+                                    className="relative group block border border-white/10 hover:border-[#00b4d8]/50 bg-white/5 hover:bg-[#00b4d8]/10 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02] overflow-hidden"
+                                >
+                                    <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/5 to-[#00b4d8]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <div className="relative flex items-center gap-4">
+                                        <div className="relative">
+                                            <img 
+                                                onError={async ({ currentTarget }) => {
+                                                    currentTarget.onerror = null;
+                                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                                }} 
+                                                className="rounded-xl h-14 w-14 border-2 border-[#00b4d8]/30 group-hover:border-[#00ffff]/50 transition-all shadow-lg" 
+                                                src={team.avatar_url} 
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff]/20 to-[#00b4d8]/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
+                                        </div>
+                                        <div className="flex flex-col gap-0.5">
+                                            <span className="text-white font-bold text-base group-hover:text-[#00ffff] transition-colors">{team.name}</span>
+                                            <span className="text-gray-400 text-xs font-medium">Equipe de desenvolvimento</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            </div>
+                        )}
+
+                        <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 right-0 w-32 h-32 bg-[#00ffff]/5 rounded-full blur-2xl"></div>
+                            <div className="relative flex items-center gap-3 mb-5">
+                                <div className="p-2.5 bg-gradient-to-br from-[#00ffff]/25 to-[#00b4d8]/25 rounded-xl shadow-lg shadow-[#00ffff]/10">
+                                    <HiOutlineInformationCircle className="text-[#00ffff]" size={20} />
+                                </div>
+                                <h2 className="text-xl font-bold text-white">Informações</h2>
+                            </div>
+                            
+                            <div className="relative flex flex-col gap-4">
+                                <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-[#00b4d8]/30 transition-all hover:bg-white/8">
+                                    <div className="flex items-center gap-2 mb-2">
+                                        <FiHash className="text-[#00ffff]" size={16} />
+                                        <strong className="text-white text-sm">Prefixo</strong>
+                                    </div>
+                                    <span className="text-gray-200 font-mono text-sm bg-black/30 px-3 py-1.5 rounded-lg inline-block border border-white/5">
+                                        {botData.prefixes.join(", ")}
+                                    </span>
+                                </div>
+
+                                <div className="relative overflow-hidden bg-gradient-to-br from-[#00ffff]/10 to-[#00b4d8]/10 p-4 rounded-2xl border border-[#00b4d8]/30 hover:border-[#00ffff]/50 transition-all hover:shadow-lg hover:shadow-[#00ffff]/10">
+                                    <div className="absolute top-0 right-0 w-24 h-24 bg-[#00ffff]/10 rounded-full blur-xl"></div>
+                                    <div className="relative flex items-center gap-2 mb-2">
+                                        <TiArrowSortedUp className="text-[#00ffff]" size={18} />
+                                        <strong className="text-white text-sm">Total de Votos</strong>
+                                    </div>
+                                    <span className="text-[#00ffff] text-3xl font-black">
+                                        {botData.votes.reduce((votesCount, vote) => votesCount + vote.votes, 0)}
+                                    </span>
+                                </div>
+
+                                <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-[#00b4d8]/30 transition-all hover:bg-white/8">
+                                    <div className="flex items-center gap-2 mb-3">
+                                        <FiTag className="text-[#00ffff]" size={16} />
+                                        <strong className="text-white text-sm">Tags</strong>
+                                    </div>
+                                    <div className="flex flex-wrap gap-2">
+                                        {botData.tags.map((tag, index) => (
+                                            <div 
+                                                key={index} 
+                                                className="bg-gradient-to-r from-[#00ffff]/20 to-[#00b4d8]/20 border border-[#00b4d8]/40 px-3 py-1.5 rounded-lg text-xs text-[#00ffff] font-bold hover:border-[#00ffff]/60 hover:scale-105 transition-all cursor-default shadow-md shadow-[#00b4d8]/10"
+                                            >
+                                                {tag}
+                                            </div>
+                                        ))}
                                     </div>
                                 </div>
                             </div>
-                            {team && (
-                                <div className="w-full">
-                                    <h1 className="text-2xl text-center">Time</h1>
-                                    <hr className="my-4 w-full" />
-                                    <div className="grid grid-cols-2 gap-4">
-                                        <Link to={`/team/${team.id}`} className="border-2 border-neutral-800 p-2 rounded-lg flex flex-row flex-wrap justify-center xl:flex-col items-center gap-4 transition-colors duration-300 hover:bg-neutral-800">
-                                            <img onError={async ({ currentTarget }) => {
-                                                currentTarget.onerror = null;
-                                                currentTarget.src = (await import("../../assets/images/simo.png")).default;
-                                            }} className="rounded-full h-[60px] w-[60px]" src={team.avatar_url} />
-                                            <span className="text-center">{team.name}</span>
-                                        </Link>
+                        </div>
+                        {(botData.support_server || botData.source_code || botData.website_url) && (
+                            <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 shadow-2xl overflow-hidden">
+                                <div className="absolute top-0 right-0 w-32 h-32 bg-[#00b4d8]/5 rounded-full blur-2xl"></div>
+                                <div className="relative flex items-center gap-3 mb-5">
+                                    <div className="p-2.5 bg-gradient-to-br from-[#00ffff]/25 to-[#00b4d8]/25 rounded-xl shadow-lg shadow-[#00ffff]/10">
+                                        <FiExternalLink className="text-[#00ffff]" size={20} />
                                     </div>
+                                    <h2 className="text-xl font-bold text-white">Links</h2>
                                 </div>
-                            )}
-                            <div>
-                                <h1 className="text-2xl text-center">Informações</h1>
-                                <hr className="my-4 w-full" />
-                                <div className="flex flex-col w-full gap-3">
-                                    <div>
-                                        <strong className="text-lg">Prefixo </strong><span>{botData.prefixes.join(", ")}</span>
-                                    </div>
-                                    <div>
-                                        <strong className="text-lg">Votos </strong><span>{botData.votes.reduce((votesCount, vote) => votesCount + vote.votes, 0)}</span>
-                                    </div>
-                                    <div>
-                                        <div className="flex flex-row gap-3 flex-wrap">
-                                            <strong className="text-lg">Tags</strong>
-                                            {botData.tags.map((tag, index) => (
-                                                <div key={index} className={`${borderAndBg[color]} p-[6px] rounded-lg border-2`}>{tag}</div>
-                                            ))}
-                                        </div>
-                                    </div>
-                                    {(botData.support_server || botData.source_code || botData.website_url) && (
-                                        <>
-                                            <h1 className="text-2xl text-center">Links</h1>
-                                            <hr className="my-1 w-full" />
-                                            <div className="flex flex-col gap-3 flex-wrap">
-                                                {botData?.support_server && (
-                                                    <Link to={botData?.support_server.includes("https://") ? botData?.support_server : "https://" + botData?.support_server} className="flex items-center gap-3 p-2">
-                                                        <icon.BsDiscord size={30} fill="#5662F6" />
-                                                        <span>Servidor de suporte</span>
-                                                    </Link>
-                                                )}
-                                                {botData?.source_code && (
-                                                    <Link to={botData?.source_code.includes("https://") ? botData?.source_code : "https://" + botData?.source_code} className="flex items-center gap-3 p-2">
-                                                        <icon.BsGithub size={30} />
-                                                        <span>Repositório</span>
-                                                    </Link>
-                                                )}
-                                                {botData?.website_url && (
-                                                    <Link to={botData?.website_url.includes("https://") ? botData?.website_url : "https://" + botData?.website_url} className="flex items-center gap-3 p-2">
-                                                        <icon.BsGlobe size={30} />
-                                                        <span>Website (<span className="text-blue-600">{botData?.website_url}</span>)</span>
-                                                    </Link>
-                                                )}
+                                
+                                <div className="relative flex flex-col gap-3">
+                                    {botData?.support_server && (
+                                        <Link 
+                                            to={botData.support_server.includes("https://") ? botData.support_server : "https://" + botData.support_server} 
+                                            className="group flex items-center gap-4 p-4 bg-gradient-to-r from-[#5662F6]/10 to-[#5662F6]/5 hover:from-[#5662F6]/20 hover:to-[#5662F6]/10 border border-[#5662F6]/30 hover:border-[#5662F6]/60 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#5662F6]/20"
+                                        >
+                                            <div className="p-3 bg-[#5662F6]/20 rounded-xl group-hover:scale-110 transition-transform shadow-md shadow-[#5662F6]/20">
+                                                <icon.BsDiscord size={22} className="text-[#5662F6]" />
                                             </div>
-                                        </>
+                                            <div className="flex flex-col flex-grow">
+                                                <span className="text-white font-bold text-sm group-hover:text-[#5662F6] transition-colors">Discord</span>
+                                                <span className="text-gray-400 text-xs font-medium">Servidor de suporte</span>
+                                            </div>
+                                            <FiExternalLink className="text-gray-400 group-hover:text-[#5662F6] transition-colors flex-shrink-0" size={16} />
+                                        </Link>
+                                    )}
+                                    
+                                    {botData?.source_code && (
+                                        <Link 
+                                            to={botData.source_code.includes("https://") ? botData.source_code : "https://" + botData.source_code} 
+                                            className="group flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-white/10"
+                                        >
+                                            <div className="p-3 bg-white/10 rounded-xl group-hover:scale-110 transition-transform shadow-md">
+                                                <icon.BsGithub size={22} className="text-white" />
+                                            </div>
+                                            <div className="flex flex-col flex-grow">
+                                                <span className="text-white font-bold text-sm group-hover:text-gray-300 transition-colors">GitHub</span>
+                                                <span className="text-gray-400 text-xs font-medium">Código fonte</span>
+                                            </div>
+                                            <FiExternalLink className="text-gray-400 group-hover:text-white transition-colors flex-shrink-0" size={16} />
+                                        </Link>
+                                    )}
+                                    
+                                    {botData?.website_url && (
+                                        <Link 
+                                            to={botData.website_url.includes("https://") ? botData.website_url : "https://" + botData.website_url} 
+                                            className="group flex items-center gap-4 p-4 bg-gradient-to-r from-[#00b4d8]/10 to-[#00ffff]/5 hover:from-[#00b4d8]/20 hover:to-[#00ffff]/10 border border-[#00b4d8]/30 hover:border-[#00ffff]/60 rounded-2xl transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-[#00ffff]/20"
+                                        >
+                                            <div className="p-3 bg-[#00b4d8]/20 rounded-xl group-hover:scale-110 transition-transform shadow-md shadow-[#00b4d8]/20">
+                                                <icon.BsGlobe size={22} className="text-[#00ffff]" />
+                                            </div>
+                                            <div className="flex flex-col flex-grow min-w-0">
+                                                <span className="text-white font-bold text-sm group-hover:text-[#00ffff] transition-colors">Website</span>
+                                                <span className="text-[#00b4d8] text-xs font-medium truncate">{botData.website_url}</span>
+                                            </div>
+                                            <FiExternalLink className="text-gray-400 group-hover:text-[#00ffff] transition-colors flex-shrink-0" size={16} />
+                                        </Link>
                                     )}
                                 </div>
                             </div>
-                        </div>
+                        )}
                     </div>
-                </section>
+                </div>
+
                 <Feedbacks botid={botid} bot={botData} dev={dev} />
             </div>
         </section>
