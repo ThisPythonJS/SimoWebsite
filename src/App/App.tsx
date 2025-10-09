@@ -3,7 +3,6 @@ import { Bots } from "../components/BotList/Bots";
 import { Addbot } from "../pages/Bot/Addbot";
 import { Routes, Route } from "react-router-dom";
 import { NotFound } from "../pages/Mixed/NotFound";
-import { Mobilemenu } from "../components/Mobile/Mobilemenu";
 import { Bot } from "../pages/Bot/Bot";
 import { Vote } from "../pages/Bot/Vote";
 import { Tests } from "../pages/Mixed/Tests";
@@ -50,7 +49,6 @@ function App() {
                     <Route path="/login" element={<Login />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
-                <Mobilemenu />
             </section>
             <Footer />
         </main>
