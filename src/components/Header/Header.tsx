@@ -69,13 +69,13 @@ export const Header: React.FC = () => {
             <icon.BsSearch size={20} className="text-white/70" />
           </button>
 
-          <button
-            aria-label="Notificações"
-            className="p-2 rounded-lg hover:bg-white/10 transition relative"
-          >
-            <icon.BsBell size={20} className="text-white/70" />
-            <span className="absolute top-1 right-1 w-2 h-2 bg-[#00ffff] rounded-full" />
-          </button>
+          <Link
+  to="/notifications"
+  className="p-2 rounded-lg hover:bg-white/10 transition relative"
+>
+  <icon.BsBell size={20} className="text-white/70" />
+  <span className="absolute top-1 right-1 w-2 h-2 bg-[#00ffff] rounded-full" />
+</Link>
 
           {user ? (
             <div className="relative">
