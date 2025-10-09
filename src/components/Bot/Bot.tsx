@@ -35,17 +35,14 @@ export const BotComponent: FC = () => {
     const getBotData = async () => {
         try {
             const { data: { owner_id }, data } = await api.getBotInfos(botid);
-
             const { data: { username, avatar, id } } = await api.getUserFromDB(owner_id);
 
             if (data.team_id) {
                 const team = await api.getTeam(data.team_id as string);
-
                 setTeam(!team.data ? null : team.data);
             }
 
             setDev({ username, avatar, id });
-
             setBotData(data);
         } catch (error) {
             console.error(error);
@@ -59,190 +56,214 @@ export const BotComponent: FC = () => {
     }, []);
 
     return botData ? (
-        <section className="max-w-[1500px] w-full px-6 xl:px-4">
+        <section className="max-w-[1500px] w-full px-6 xl:px-4 mb-12">
             {!botData.approved && (
-                <div className="fixed flex items-center justify-center backdrop-blur-md inset-0 z-50 bg-black/50">
-                    <div className="flex gap-5 items-center justify-center flex-col w-[90%] max-w-lg p-10 border-2 rounded-3xl bg-gradient-to-br from-[#e8a60c] via-[#d89b0a] to-[#c78a09] border-[#9e7514] shadow-2xl shadow-orange-500/20">
+                <div className="fixed flex items-center justify-center backdrop-blur-md inset-0 z-50 bg-black/60">
+                    <div className="relative flex gap-6 items-center justify-center flex-col w-[90%] max-w-lg p-12 rounded-3xl bg-gradient-to-br from-[#f59e0b] via-[#d97706] to-[#b45309] shadow-2xl shadow-orange-600/40 border-2 border-orange-400/30">
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-3xl"></div>
                         <div className="relative">
-                            <icon.BsClockFill size={50} className="text-white" />
-                            <div className="absolute inset-0 bg-white/30 blur-xl rounded-full"></div>
+                            <icon.BsClockFill size={56} className="text-white drop-shadow-lg" />
+                            <div className="absolute inset-0 bg-white/40 blur-2xl rounded-full animate-pulse"></div>
                         </div>
-                        <span className="text-xl text-center text-white font-bold leading-relaxed">
-                            A aplicação <span className="text-yellow-100">{botData.name}</span> está em análise
-                        </span>
-                        <p className="text-white/80 text-center">Aguarde até que a análise seja finalizada</p>
+                        <div className="relative flex flex-col gap-3 items-center">
+                            <span className="text-2xl text-center text-white font-bold leading-relaxed">
+                                Bot <span className="text-yellow-100">{botData.name}</span> em análise
+                            </span>
+                            <p className="text-white/90 text-center text-lg">Aguarde a aprovação da equipe</p>
+                        </div>
                     </div>
                 </div>
             )}
 
-            <div className="flex flex-col items-center justify-center gap-8 my-8">
-                <div className="relative w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl">
-                    <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff]/10 via-[#00b4d8]/5 to-transparent animate-pulse"></div>
-                    <div className="absolute inset-0 bg-gradient-to-tr from-[#0a0e1a] via-[#0f1419] to-[#12161f]"></div>
-                    <div className="relative z-10 flex xl:flex-col items-center gap-8 p-10 xl:p-6">
-                        <div className="relative group">
-                            <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff] to-[#00b4d8] rounded-3xl blur-2xl opacity-50 group-hover:opacity-70 transition-opacity duration-500 animate-pulse"></div>
-                            <img
-                                className="relative w-36 h-36 xl:w-32 xl:h-32 rounded-3xl border-4 border-[#00b4d8]/50 shadow-2xl group-hover:scale-105 transition-transform duration-300"
-                                onError={async ({ currentTarget }) => {
-                                    currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
-                                }}
-                                src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png`}
-                                alt={botData.name + "'s Avatar"}
-                            />
-                        </div>
-                        <div className="flex-grow flex flex-col gap-4 xl:items-center xl:text-center">
-                            <div className="flex items-center gap-4 xl:flex-col">
-                                <h1 className="text-5xl xl:text-4xl font-bold bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] bg-clip-text text-transparent">
-                                    {botData.name}
-                                </h1>
-                                <CopyButton name="ID" text={botData.id} key={Math.random()}/>
-                            </div>
-                            <div className="flex items-center gap-3 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 backdrop-blur-sm px-5 py-2.5 rounded-full border border-yellow-500/30 w-fit">
-                                {Array(stars).fill(0).map((_, index) => (
-                                    <icon.BsStarFill key={index} className="text-yellow-400 text-lg" />
-                                ))}
-                                {Array(5 - stars).fill(0).map((_, index) => (
-                                    <icon.BsStar key={index} className="text-gray-600 text-lg" />
-                                ))}
-                                <span className="text-yellow-400 font-bold ml-2">{stars}.0</span>
+            <div className="flex flex-col items-center justify-center gap-8 my-10">
+                <div className="relative w-full overflow-hidden rounded-[2rem] border-2 border-white/10 shadow-2xl shadow-[#00b4d8]/10">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,255,255,0.1),transparent_70%)]"></div>
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e1a] via-[#0f1419] to-[#080c14]"></div>
+                    <div className="absolute top-0 right-0 w-96 h-96 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00ffff]/5 rounded-full blur-3xl"></div>
+                    
+                    <div className="relative z-10 flex xl:flex-col items-center justify-between gap-10 p-12 xl:p-8">
+                        <div className="flex xl:flex-col items-center gap-8">
+                            <div className="relative group">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] rounded-[2rem] blur-xl opacity-60 group-hover:opacity-80 transition-all duration-500 animate-pulse"></div>
+                                <img
+                                    className="relative w-40 h-40 xl:w-36 xl:h-36 rounded-[2rem] border-4 border-[#00b4d8]/60 shadow-2xl group-hover:scale-105 transition-all duration-500"
+                                    onError={async ({ currentTarget }) => {
+                                        currentTarget.onerror = null;
+                                        currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    }}
+                                    src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png?size=512`}
+                                    alt={botData.name}
+                                />
                             </div>
 
-                            <p className="text-gray-400 text-lg leading-relaxed max-w-2xl">
-                                {botData.short_description}
-                            </p>
+                            <div className="flex flex-col gap-4 xl:items-center xl:text-center">
+                                <div className="flex items-center gap-4 xl:flex-col">
+                                    <h1 className="text-6xl xl:text-5xl font-extrabold bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] bg-clip-text text-transparent drop-shadow-lg">
+                                        {botData.name}
+                                    </h1>
+                                    <CopyButton name="ID" text={botData.id} key={Math.random()}/>
+                                </div>
+
+                                <div className="flex items-center gap-3 bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-orange-500/20 backdrop-blur-xl px-6 py-3 rounded-full border-2 border-yellow-500/40 w-fit shadow-lg shadow-yellow-500/20">
+                                    {Array(stars).fill(0).map((_, index) => (
+                                        <icon.BsStarFill key={index} className="text-yellow-400 text-xl drop-shadow-md" />
+                                    ))}
+                                    {Array(5 - stars).fill(0).map((_, index) => (
+                                        <icon.BsStar key={index} className="text-gray-600 text-xl" />
+                                    ))}
+                                    <span className="text-yellow-400 font-bold text-lg ml-1">{stars}.0</span>
+                                </div>
+
+                                <p className="text-gray-300 text-xl xl:text-lg leading-relaxed max-w-2xl font-medium">
+                                    {botData.short_description}
+                                </p>
+                            </div>
                         </div>
-                        <div className="flex xl:flex-col gap-4 xl:w-full">
+
+                        <div className="flex xl:flex-row gap-4 xl:w-full xl:justify-center">
                             <Link
-                                className="group relative overflow-hidden border-2 border-[#00ffff]/40 bg-gradient-to-r from-[#00ffff]/20 to-[#00b4d8]/20 hover:from-[#00ffff]/30 hover:to-[#00b4d8]/30 text-white font-bold transition-all duration-300 px-8 py-4 rounded-xl min-w-[160px] text-center hover:scale-105 hover:shadow-lg hover:shadow-[#00ffff]/30 active:scale-95"
+                                className="group relative overflow-hidden border-2 border-[#00ffff]/50 bg-gradient-to-br from-[#00ffff]/20 via-[#00d4ff]/15 to-[#00b4d8]/20 text-white font-bold transition-all duration-300 px-10 py-5 rounded-2xl min-w-[180px] text-center hover:scale-110 hover:shadow-2xl hover:shadow-[#00ffff]/40 active:scale-95 hover:border-[#00ffff]/80"
                                 to={`/vote/${botData.id}`}
                             >
-                                <span className="relative z-10 flex items-center justify-center gap-2">
-                                    <TiArrowSortedUp size={24} className="text-[#00ffff]" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/20 to-[#00b4d8]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                                <span className="relative z-10 flex items-center justify-center gap-3 text-lg">
+                                    <TiArrowSortedUp size={26} className="text-[#00ffff] drop-shadow-lg" />
                                     Votar
                                 </span>
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/10 to-[#00b4d8]/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
                             </Link>
                             <Link
-                                className="group relative overflow-hidden border-2 border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/30 text-white font-bold transition-all duration-300 px-8 py-4 rounded-xl min-w-[160px] text-center hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-95"
+                                className="group relative overflow-hidden border-2 border-white/30 bg-white/10 hover:bg-white/15 hover:border-white/50 text-white font-bold transition-all duration-300 px-10 py-5 rounded-2xl min-w-[180px] text-center hover:scale-110 hover:shadow-2xl hover:shadow-white/20 active:scale-95 backdrop-blur-sm"
                                 to={`https://discord.com/api/oauth2/authorize?client_id=${botData.id}`}
                             >
-                                <span className="relative z-10 flex items-center justify-center gap-2">
-                                    <icon.BsPlus size={24} />
+                                <span className="relative z-10 flex items-center justify-center gap-3 text-lg">
+                                    <icon.BsPlus size={26} />
                                     Adicionar
                                 </span>
                             </Link>
                         </div>
                     </div>
                 </div>
-                <div className="w-full grid lg:grid-cols-[1fr_380px] gap-6">
-                    <div className="bg-gradient-to-br from-[#0a0e1a] via-[#0f1419] to-[#0a0e1a] border border-white/10 rounded-3xl p-8 xl:p-6 shadow-2xl">
-                        <div className="prose prose-invert prose-lg max-w-none">
+
+                <div className="w-full grid lg:grid-cols-[1fr_420px] gap-8">
+                    <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border-2 border-white/10 rounded-[2rem] p-10 xl:p-8 shadow-2xl overflow-hidden">
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
+                        <div className="relative prose prose-invert prose-xl max-w-none">
                             <Markdown markdown={botData.long_description} />
                         </div>
                     </div>
+
                     <div className="flex flex-col gap-6">
-                        <div className="bg-gradient-to-br from-[#0a0e1a] via-[#0f1419] to-[#0a0e1a] border border-white/10 rounded-3xl p-6 shadow-2xl">
-                            <div className="flex items-center gap-3 mb-5">
-                                <div className="p-2 bg-gradient-to-br from-[#00ffff]/20 to-[#00b4d8]/20 rounded-xl">
-                                    <FiUser className="text-[#00ffff]" size={22} />
+                        <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border-2 border-white/10 rounded-[2rem] p-8 shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-[#00ffff]/5 rounded-full blur-2xl"></div>
+                            <div className="relative flex items-center gap-4 mb-6">
+                                <div className="p-3 bg-gradient-to-br from-[#00ffff]/30 to-[#00b4d8]/30 rounded-2xl shadow-lg shadow-[#00ffff]/20">
+                                    <FiUser className="text-[#00ffff]" size={24} />
                                 </div>
-                                <h2 className="text-xl font-bold text-white">Desenvolvedor</h2>
+                                <h2 className="text-2xl font-bold text-white">Desenvolvedor</h2>
                             </div>
                             <Link 
                                 to={`/user/${dev?.id}`} 
-                                className="group block border-2 border-white/10 hover:border-[#00b4d8]/50 bg-white/5 hover:bg-[#00b4d8]/10 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
+                                className="relative group block border-2 border-white/10 hover:border-[#00b4d8]/60 bg-white/5 hover:bg-[#00b4d8]/15 p-5 rounded-2xl transition-all duration-300 hover:scale-[1.03] overflow-hidden"
                             >
-                                <div className="flex items-center gap-4">
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/5 to-[#00b4d8]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                <div className="relative flex items-center gap-5">
                                     <div className="relative">
                                         <img 
                                             onError={async ({ currentTarget }) => {
                                                 currentTarget.onerror = null;
                                                 currentTarget.src = (await import("../../assets/images/simo.png")).default;
                                             }} 
-                                            className="rounded-2xl h-16 w-16 border-2 border-[#00b4d8]/30 group-hover:border-[#00ffff]/50 transition-all" 
-                                            src={`https://cdn.discordapp.com/avatars/${dev?.id}/${dev?.avatar}.png?size=2048`} 
-                                            alt={`${dev?.username}'s Avatar`} 
+                                            className="rounded-2xl h-20 w-20 border-3 border-[#00b4d8]/40 group-hover:border-[#00ffff]/60 transition-all shadow-lg" 
+                                            src={`https://cdn.discordapp.com/avatars/${dev?.id}/${dev?.avatar}.png?size=256`} 
+                                            alt={dev?.username} 
                                         />
-                                        <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff]/20 to-[#00b4d8]/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff]/30 to-[#00b4d8]/30 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
                                     </div>
-                                    <div className="flex flex-col">
-                                        <span className="text-white font-bold text-lg group-hover:text-[#00ffff] transition-colors">{dev?.username}</span>
-                                        <span className="text-gray-400 text-sm">Criador do bot</span>
+                                    <div className="flex flex-col gap-1">
+                                        <span className="text-white font-bold text-xl group-hover:text-[#00ffff] transition-colors">{dev?.username}</span>
+                                        <span className="text-gray-400 text-sm font-medium">Criador do bot</span>
                                     </div>
                                 </div>
                             </Link>
                         </div>
+
                         {team && (
-                            <div className="bg-gradient-to-br from-[#0a0e1a] via-[#0f1419] to-[#0a0e1a] border border-white/10 rounded-3xl p-6 shadow-2xl">
-                                <div className="flex items-center gap-3 mb-5">
-                                    <div className="p-2 bg-gradient-to-br from-[#00ffff]/20 to-[#00b4d8]/20 rounded-xl">
-                                        <FiUsers className="text-[#00ffff]" size={22} />
+                            <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border-2 border-white/10 rounded-[2rem] p-8 shadow-2xl overflow-hidden">
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-[#00b4d8]/5 rounded-full blur-2xl"></div>
+                                <div className="relative flex items-center gap-4 mb-6">
+                                    <div className="p-3 bg-gradient-to-br from-[#00ffff]/30 to-[#00b4d8]/30 rounded-2xl shadow-lg shadow-[#00ffff]/20">
+                                        <FiUsers className="text-[#00ffff]" size={24} />
                                     </div>
-                                    <h2 className="text-xl font-bold text-white">Time</h2>
+                                    <h2 className="text-2xl font-bold text-white">Time</h2>
                                 </div>
                                 <Link 
                                     to={`/team/${team.id}`} 
-                                    className="group block border-2 border-white/10 hover:border-[#00b4d8]/50 bg-white/5 hover:bg-[#00b4d8]/10 p-4 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
+                                    className="relative group block border-2 border-white/10 hover:border-[#00b4d8]/60 bg-white/5 hover:bg-[#00b4d8]/15 p-5 rounded-2xl transition-all duration-300 hover:scale-[1.03] overflow-hidden"
                                 >
-                                    <div className="flex items-center gap-4">
+                                    <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/5 to-[#00b4d8]/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                                    <div className="relative flex items-center gap-5">
                                         <div className="relative">
                                             <img 
                                                 onError={async ({ currentTarget }) => {
                                                     currentTarget.onerror = null;
                                                     currentTarget.src = (await import("../../assets/images/simo.png")).default;
                                                 }} 
-                                                className="rounded-2xl h-16 w-16 border-2 border-[#00b4d8]/30 group-hover:border-[#00ffff]/50 transition-all" 
+                                                className="rounded-2xl h-20 w-20 border-3 border-[#00b4d8]/40 group-hover:border-[#00ffff]/60 transition-all shadow-lg" 
                                                 src={team.avatar_url} 
                                             />
-                                            <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff]/20 to-[#00b4d8]/20 rounded-2xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
+                                            <div className="absolute inset-0 bg-gradient-to-br from-[#00ffff]/30 to-[#00b4d8]/30 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity -z-10"></div>
                                         </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-white font-bold text-lg group-hover:text-[#00ffff] transition-colors">{team.name}</span>
-                                            <span className="text-gray-400 text-sm">Equipe de desenvolvimento</span>
+                                        <div className="flex flex-col gap-1">
+                                            <span className="text-white font-bold text-xl group-hover:text-[#00ffff] transition-colors">{team.name}</span>
+                                            <span className="text-gray-400 text-sm font-medium">Equipe de desenvolvimento</span>
                                         </div>
                                     </div>
                                 </Link>
                             </div>
                         )}
-                        <div className="bg-gradient-to-br from-[#0a0e1a] via-[#0f1419] to-[#0a0e1a] border border-white/10 rounded-3xl p-6 shadow-2xl">
-                            <div className="flex items-center gap-3 mb-5">
-                                <div className="p-2 bg-gradient-to-br from-[#00ffff]/20 to-[#00b4d8]/20 rounded-xl">
-                                    <HiOutlineInformationCircle className="text-[#00ffff]" size={22} />
+
+                        <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border-2 border-white/10 rounded-[2rem] p-8 shadow-2xl overflow-hidden">
+                            <div className="absolute top-0 right-0 w-40 h-40 bg-[#00ffff]/5 rounded-full blur-2xl"></div>
+                            <div className="relative flex items-center gap-4 mb-6">
+                                <div className="p-3 bg-gradient-to-br from-[#00ffff]/30 to-[#00b4d8]/30 rounded-2xl shadow-lg shadow-[#00ffff]/20">
+                                    <HiOutlineInformationCircle className="text-[#00ffff]" size={24} />
                                 </div>
-                                <h2 className="text-xl font-bold text-white">Informações</h2>
+                                <h2 className="text-2xl font-bold text-white">Informações</h2>
                             </div>
                             
-                            <div className="flex flex-col gap-4">
-                                <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-[#00b4d8]/30 transition-colors">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <FiHash className="text-[#00ffff]" size={18} />
-                                        <strong className="text-white">Prefixo</strong>
+                            <div className="relative flex flex-col gap-5">
+                                <div className="bg-white/5 p-5 rounded-2xl border-2 border-white/10 hover:border-[#00b4d8]/40 transition-all hover:bg-white/10">
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <FiHash className="text-[#00ffff]" size={20} />
+                                        <strong className="text-white text-lg">Prefixo</strong>
                                     </div>
-                                    <span className="text-gray-300 font-mono bg-black/30 px-3 py-1 rounded-lg inline-block">
+                                    <span className="text-gray-200 font-mono text-lg bg-black/40 px-4 py-2 rounded-xl inline-block border border-white/10">
                                         {botData.prefixes.join(", ")}
                                     </span>
                                 </div>
-                                <div className="bg-gradient-to-br from-[#00ffff]/10 to-[#00b4d8]/10 p-4 rounded-2xl border border-[#00b4d8]/30 hover:border-[#00ffff]/50 transition-colors">
-                                    <div className="flex items-center gap-2 mb-2">
-                                        <TiArrowSortedUp className="text-[#00ffff]" size={20} />
-                                        <strong className="text-white">Total de Votos</strong>
+
+                                <div className="relative overflow-hidden bg-gradient-to-br from-[#00ffff]/15 to-[#00b4d8]/15 p-5 rounded-2xl border-2 border-[#00b4d8]/40 hover:border-[#00ffff]/60 transition-all hover:shadow-lg hover:shadow-[#00ffff]/20">
+                                    <div className="absolute top-0 right-0 w-32 h-32 bg-[#00ffff]/10 rounded-full blur-2xl"></div>
+                                    <div className="relative flex items-center gap-3 mb-3">
+                                        <TiArrowSortedUp className="text-[#00ffff] drop-shadow-lg" size={24} />
+                                        <strong className="text-white text-lg">Total de Votos</strong>
                                     </div>
-                                    <span className="text-[#00ffff] text-3xl font-bold">
+                                    <span className="text-[#00ffff] text-4xl font-black drop-shadow-lg">
                                         {botData.votes.reduce((votesCount, vote) => votesCount + vote.votes, 0)}
                                     </span>
                                 </div>
-                                <div className="bg-white/5 p-4 rounded-2xl border border-white/10 hover:border-[#00b4d8]/30 transition-colors">
-                                    <div className="flex items-center gap-2 mb-3">
-                                        <FiTag className="text-[#00ffff]" size={18} />
-                                        <strong className="text-white">Tags</strong>
+
+                                <div className="bg-white/5 p-5 rounded-2xl border-2 border-white/10 hover:border-[#00b4d8]/40 transition-all hover:bg-white/10">
+                                    <div className="flex items-center gap-3 mb-4">
+                                        <FiTag className="text-[#00ffff]" size={20} />
+                                        <strong className="text-white text-lg">Tags</strong>
                                     </div>
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-3">
                                         {botData.tags.map((tag, index) => (
                                             <div 
                                                 key={index} 
-                                                className="bg-gradient-to-r from-[#00ffff]/20 to-[#00b4d8]/20 border border-[#00b4d8]/40 px-3 py-1.5 rounded-xl text-sm text-[#00ffff] font-semibold hover:border-[#00ffff]/60 hover:scale-105 transition-all cursor-default"
+                                                className="bg-gradient-to-r from-[#00ffff]/25 to-[#00b4d8]/25 border-2 border-[#00b4d8]/50 px-4 py-2 rounded-xl text-sm text-[#00ffff] font-bold hover:border-[#00ffff]/70 hover:scale-110 transition-all cursor-default shadow-lg shadow-[#00b4d8]/20"
                                             >
                                                 {tag}
                                             </div>
@@ -252,52 +273,62 @@ export const BotComponent: FC = () => {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-3">
+                        {(botData.support_server || botData.source_code || botData.website_url) && (
+                            <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border-2 border-white/10 rounded-[2rem] p-8 shadow-2xl overflow-hidden">
+                                <div className="absolute top-0 right-0 w-40 h-40 bg-[#00b4d8]/5 rounded-full blur-2xl"></div>
+                                <div className="relative flex items-center gap-4 mb-6">
+                                    <div className="p-3 bg-gradient-to-br from-[#00ffff]/30 to-[#00b4d8]/30 rounded-2xl shadow-lg shadow-[#00ffff]/20">
+                                        <FiExternalLink className="text-[#00ffff]" size={24} />
+                                    </div>
+                                    <h2 className="text-2xl font-bold text-white">Links</h2>
+                                </div>
+                                
+                                <div className="relative flex flex-col gap-4">
                                     {botData?.support_server && (
                                         <Link 
-                                            to={botData?.support_server.includes("https://") ? botData?.support_server : "https://" + botData?.support_server} 
-                                            className="group flex items-center gap-4 p-4 bg-gradient-to-r from-[#5662F6]/10 to-[#5662F6]/5 hover:from-[#5662F6]/20 hover:to-[#5662F6]/10 border border-[#5662F6]/30 hover:border-[#5662F6]/50 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
+                                            to={botData.support_server.includes("https://") ? botData.support_server : "https://" + botData.support_server} 
+                                            className="group flex items-center gap-5 p-5 bg-gradient-to-r from-[#5662F6]/15 to-[#5662F6]/5 hover:from-[#5662F6]/25 hover:to-[#5662F6]/15 border-2 border-[#5662F6]/40 hover:border-[#5662F6]/70 rounded-2xl transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#5662F6]/30"
                                         >
-                                            <div className="p-3 bg-[#5662F6]/20 rounded-xl group-hover:scale-110 transition-transform">
-                                                <icon.BsDiscord size={24} className="text-[#5662F6]" />
+                                            <div className="p-4 bg-[#5662F6]/30 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-[#5662F6]/30">
+                                                <icon.BsDiscord size={28} className="text-[#5662F6]" />
                                             </div>
                                             <div className="flex flex-col flex-grow">
-                                                <span className="text-white font-semibold group-hover:text-[#5662F6] transition-colors">Discord</span>
-                                                <span className="text-gray-400 text-sm">Servidor de suporte</span>
+                                                <span className="text-white font-bold text-lg group-hover:text-[#5662F6] transition-colors">Discord</span>
+                                                <span className="text-gray-400 font-medium">Servidor de suporte</span>
                                             </div>
-                                            <FiExternalLink className="text-gray-400 group-hover:text-[#5662F6] transition-colors" size={18} />
+                                            <FiExternalLink className="text-gray-400 group-hover:text-[#5662F6] transition-colors" size={20} />
                                         </Link>
                                     )}
                                     
                                     {botData?.source_code && (
                                         <Link 
-                                            to={botData?.source_code.includes("https://") ? botData?.source_code : "https://" + botData?.source_code} 
-                                            className="group flex items-center gap-4 p-4 bg-white/5 hover:bg-white/10 border border-white/20 hover:border-white/40 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
+                                            to={botData.source_code.includes("https://") ? botData.source_code : "https://" + botData.source_code} 
+                                            className="group flex items-center gap-5 p-5 bg-white/5 hover:bg-white/15 border-2 border-white/20 hover:border-white/50 rounded-2xl transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-white/20"
                                         >
-                                            <div className="p-3 bg-white/10 rounded-xl group-hover:scale-110 transition-transform">
-                                                <icon.BsGithub size={24} className="text-white" />
+                                            <div className="p-4 bg-white/15 rounded-2xl group-hover:scale-110 transition-transform shadow-lg">
+                                                <icon.BsGithub size={28} className="text-white" />
                                             </div>
                                             <div className="flex flex-col flex-grow">
-                                                <span className="text-white font-semibold group-hover:text-gray-300 transition-colors">GitHub</span>
-                                                <span className="text-gray-400 text-sm">Código fonte</span>
+                                                <span className="text-white font-bold text-lg group-hover:text-gray-300 transition-colors">GitHub</span>
+                                                <span className="text-gray-400 font-medium">Código fonte</span>
                                             </div>
-                                            <FiExternalLink className="text-gray-400 group-hover:text-white transition-colors" size={18} />
+                                            <FiExternalLink className="text-gray-400 group-hover:text-white transition-colors" size={20} />
                                         </Link>
                                     )}
                                     
                                     {botData?.website_url && (
                                         <Link 
-                                            to={botData?.website_url.includes("https://") ? botData?.website_url : "https://" + botData?.website_url} 
-                                            className="group flex items-center gap-4 p-4 bg-gradient-to-r from-[#00b4d8]/10 to-[#00ffff]/5 hover:from-[#00b4d8]/20 hover:to-[#00ffff]/10 border border-[#00b4d8]/30 hover:border-[#00ffff]/50 rounded-2xl transition-all duration-300 hover:scale-[1.02]"
+                                            to={botData.website_url.includes("https://") ? botData.website_url : "https://" + botData.website_url} 
+                                            className="group flex items-center gap-5 p-5 bg-gradient-to-r from-[#00b4d8]/15 to-[#00ffff]/5 hover:from-[#00b4d8]/25 hover:to-[#00ffff]/15 border-2 border-[#00b4d8]/40 hover:border-[#00ffff]/70 rounded-2xl transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-[#00ffff]/30"
                                         >
-                                            <div className="p-3 bg-[#00b4d8]/20 rounded-xl group-hover:scale-110 transition-transform">
-                                                <icon.BsGlobe size={24} className="text-[#00ffff]" />
+                                            <div className="p-4 bg-[#00b4d8]/30 rounded-2xl group-hover:scale-110 transition-transform shadow-lg shadow-[#00b4d8]/30">
+                                                <icon.BsGlobe size={28} className="text-[#00ffff]" />
                                             </div>
                                             <div className="flex flex-col flex-grow min-w-0">
-                                                <span className="text-white font-semibold group-hover:text-[#00ffff] transition-colors">Website</span>
-                                                <span className="text-[#00b4d8] text-sm truncate">{botData?.website_url}</span>
+                                                <span className="text-white font-bold text-lg group-hover:text-[#00ffff] transition-colors">Website</span>
+                                                <span className="text-[#00b4d8] font-medium truncate">{botData.website_url}</span>
                                             </div>
-                                            <FiExternalLink className="text-gray-400 group-hover:text-[#00ffff] transition-colors flex-shrink-0" size={18} />
+                                            <FiExternalLink className="text-gray-400 group-hover:text-[#00ffff] transition-colors flex-shrink-0" size={20} />
                                         </Link>
                                     )}
                                 </div>
