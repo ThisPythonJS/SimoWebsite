@@ -149,7 +149,7 @@ export const User: React.FC = () => {
         <div className="pt-20 pb-8 px-6">
           <div className="flex flex-col items-center text-center gap-2">
             <div className="flex items-center gap-3">
-              <h1 className="text-3xl font-bold">{user.username}</h1>
+              <h1 className="text-3xl font-bold text-sky-400">{user.username}</h1>
 
               {/* Premium site badge */}
               {premiumType === 1 && (
