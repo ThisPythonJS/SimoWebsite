@@ -9,15 +9,15 @@ import { UserLoading } from "./UserLoading";
 import simo from "../../assets/images/simo.png";
 import { CopyButton } from "../Mixed/Copy";
 import { Badges } from "../Badges/Badges";
-import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const User: React.FC = () => {
     const params: Params = useParams<string>();
     const userid: string = params.userid as string;
     const [user, setUser] = useState<UserStructure>();
     const [userBots, setUserBots] = useState<BotStructure[]>([]);
-    const [showBadgesInfo, setShowBadgesInfo] = useState(false);
+    const [showFlagsInfo, setShowFlagsInfo] = useState(false);
     const { color } = useContext(ThemeContext);
 
     const getUserData = async () => {
@@ -37,134 +37,111 @@ export const User: React.FC = () => {
         getUserData();
     }, []);
 
+    if (!user) return <UserLoading />;
+
     return (
-        <main className="max-w-[1500px] flex justify-center text-white">
-            {!user ? (
-                <UserLoading />
-            ) : (
-                <section className="w-screen flex flex-row p-5 items-start xl:items-center justify-center gap-10 xl:flex-col">
-                    {/* Card lateral */}
-                    <div
-                        className={`${borderColor[color]} border-2 ${
-                            user.banner_url ? "min-h-[260px]" : "p-6"
-                        } ${
-                            user?.flags > 0 && user.banner_url && "min-h-[320px]"
-                        } w-[320px] xl:w-[90vw] rounded-2xl bg-neutral-900/60 backdrop-blur-lg shadow-lg flex flex-col gap-4 relative overflow-hidden transition-all duration-300 hover:scale-[1.01]`}
-                    >
-                        {user.banner_url && (
-                            <img
-                                className="w-full h-40 object-cover rounded-t-lg opacity-90"
-                                src={user.banner_url}
-                                alt="Banner do usuário"
-                            />
-                        )}
+        <main className="flex justify-center w-full text-white px-4 py-6">
+            <section className="flex flex-col w-full max-w-[1200px] bg-neutral-950/50 backdrop-blur-md rounded-2xl overflow-hidden border border-neutral-800 shadow-[0_0_20px_rgba(0,0,0,0.3)]">
+                {/* Banner */}
+                <div className="relative w-full h-[230px] bg-neutral-900">
+                    {user.banner_url ? (
+                        <img
+                            src={user.banner_url}
+                            alt="Banner"
+                            className="w-full h-full object-cover"
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-gradient-to-br from-neutral-800 to-neutral-900" />
+                    )}
+                    {/* Avatar centralizado */}
+                    <div className="absolute -bottom-16 left-1/2 transform -translate-x-1/2">
+                        <img
+                            onError={({ currentTarget }) => {
+                                currentTarget.onerror = null;
+                                currentTarget.src = simo;
+                            }}
+                            src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
+                            alt={user.username}
+                            className="w-32 h-32 rounded-full border-[6px] border-neutral-950 shadow-xl object-cover"
+                        />
+                    </div>
+                </div>
 
-                        {/* Avatar */}
-                        <div
-                            className={`w-full flex justify-center ${
-                                user.banner_url &&
-                                "absolute top-[90px] left-0 transform translate-y-[0%]"
-                            }`}
-                        >
-                            <img
-                                onError={({ currentTarget }) => {
-                                    currentTarget.onerror = null;
-                                    currentTarget.src = simo;
-                                }}
-                                className="rounded-full w-32 border-4 border-neutral-900 shadow-xl"
-                                src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
-                                alt={`${user.username}'s Avatar`}
-                            />
-                        </div>
-
-                        {/* Nome e ID */}
-                        <div className="flex flex-col items-center gap-1 z-2 relative mt-[120px]">
-                            <strong className="text-xl font-bold tracking-wide">{user.username}</strong>
-                            <CopyButton name="ID" text={user.id} key={Math.random()} />
-                        </div>
-
-                        {/* Badges / Flags */}
-                        {user.flags > 0 && (
-                            <div className="flex justify-center mt-3">
-                                <motion.button
-                                    whileHover={{ scale: 1.05 }}
-                                    whileTap={{ scale: 0.97 }}
-                                    onClick={() => setShowBadgesInfo(true)}
-                                    className="p-3 bg-neutral-800 rounded-lg border border-neutral-700 hover:border-neutral-500 transition-all duration-300"
-                                >
-                                    <Badges key={Math.random()} flags={user.flags} />
-                                </motion.button>
-                            </div>
-                        )}
-
-                        {/* Modal de informações das flags */}
-                        <AnimatePresence>
-                            {showBadgesInfo && (
-                                <motion.div
-                                    className="fixed inset-0 flex justify-center items-center bg-black/50 z-[100]"
-                                    initial={{ opacity: 0 }}
-                                    animate={{ opacity: 1 }}
-                                    exit={{ opacity: 0 }}
-                                >
-                                    <motion.div
-                                        className="bg-neutral-900 rounded-xl p-6 w-[90%] md:w-[500px] border border-neutral-700 shadow-lg relative"
-                                        initial={{ scale: 0.9, opacity: 0 }}
-                                        animate={{ scale: 1, opacity: 1 }}
-                                        exit={{ scale: 0.9, opacity: 0 }}
-                                    >
-                                        <button
-                                            onClick={() => setShowBadgesInfo(false)}
-                                            className="absolute top-3 right-3 text-gray-400 hover:text-white"
-                                        >
-                                            <X size={20} />
-                                        </button>
-
-                                        <h2 className="text-xl font-bold mb-4 text-center">Suas Insígnias</h2>
-                                        <Badges flags={user.flags} />
-                                        <p className="text-sm mt-4 text-neutral-400 text-center">
-                                            Cada insígnia representa uma conquista ou status especial na plataforma.
-                                        </p>
-                                    </motion.div>
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                {/* Infos principais */}
+                <div className="flex flex-col items-center mt-20 pb-6 text-center px-6">
+                    <h1 className="text-3xl font-bold">{user.username}</h1>
+                    <div className="flex items-center gap-2 mt-2">
+                        <CopyButton name="ID" text={user.id} />
                     </div>
 
-                    {/* Infos e bots */}
-                    <div className="flex items-start w-full flex-col gap-3">
-                        <h1 className="text-[33px]">
-                            Perfil de <strong>{user.username}</strong>
-                        </h1>
-                        {user?.bio && (
-                            <span
-                                className={
-                                    user.bio.includes(" ")
-                                        ? "break-words text-neutral-300"
-                                        : "break-all text-neutral-300"
-                                }
+                    {/* Quadradinho de flags */}
+                    {user.flags > 0 && (
+                        <div className="mt-4">
+                            <button
+                                onClick={() => setShowFlagsInfo(true)}
+                                className="flex items-center justify-center w-12 h-12 bg-neutral-800 hover:bg-neutral-700 rounded-xl border border-neutral-700 transition-all duration-200"
+                                title="Ver insígnias"
                             >
-                                {user.bio}
-                            </span>
-                        )}
-
-                        <hr className="w-full my-3 border-neutral-700" />
-
-                        <div className="w-full flex xl:items-center xl:justify-center">
-                            {userBots.length === 0 ? (
-                                <div className="text-center text-[22px] text-neutral-400">
-                                    {user.username} não tem bots para serem listados.
-                                </div>
-                            ) : (
-                                <div className="grid-cols-2 grid gap-8 text-white m-2 xl:grid-cols-1 xl:place-items-center xl:w-[95vw]">
-                                    {userBots.map((bot: BotStructure, index: number) => (
-                                        <BotCard key={index} bot={bot} />
-                                    ))}
-                                </div>
-                            )}
+                                <Badges flags={user.flags} />
+                            </button>
                         </div>
-                    </div>
-                </section>
-            )}
+                    )}
+
+                    {/* Bio */}
+                    {user.bio && (
+                        <p className="text-neutral-400 mt-5 max-w-[600px] text-sm leading-relaxed">
+                            {user.bio}
+                        </p>
+                    )}
+                </div>
+
+                {/* Lista de bots */}
+                <div className="border-t border-neutral-800 py-8 px-8">
+                    <h2 className="text-2xl font-semibold mb-6 text-center">Bots de {user.username}</h2>
+                    {userBots.length === 0 ? (
+                        <div className="text-center text-neutral-400 text-lg">
+                            Nenhum bot encontrado.
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-2 xl:grid-cols-1 gap-8 place-items-center">
+                            {userBots.map((bot: BotStructure, index: number) => (
+                                <BotCard key={index} bot={bot} />
+                            ))}
+                        </div>
+                    )}
+                </div>
+            </section>
+
+            {/* Modal das flags */}
+            <AnimatePresence>
+                {showFlagsInfo && (
+                    <motion.div
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                    >
+                        <motion.div
+                            className="bg-neutral-900 border border-neutral-800 rounded-xl p-6 w-[90%] max-w-[420px] shadow-lg relative"
+                            initial={{ scale: 0.9, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.9, opacity: 0 }}
+                        >
+                            <button
+                                onClick={() => setShowFlagsInfo(false)}
+                                className="absolute top-3 right-3 text-gray-400 hover:text-white"
+                            >
+                                <X size={20} />
+                            </button>
+                            <h3 className="text-xl font-bold mb-4 text-center">Suas Insígnias</h3>
+                            <Badges flags={user.flags} />
+                            <p className="text-neutral-400 text-sm text-center mt-3">
+                                Cada insígnia representa uma conquista ou status especial na plataforma.
+                            </p>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </main>
     );
 };
