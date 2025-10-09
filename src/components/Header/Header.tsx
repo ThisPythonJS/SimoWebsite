@@ -5,8 +5,8 @@ import { Button } from "../Mixed/Button";
 import { NotificationButton } from "../Notification/Button";
 import { UserContext } from "../../contexts/UserContext";
 import { LoginMenu } from "../DropdownMenu/Menu";
-import { InputSearch } from "../../components/InputSearch";
-import "../../index.css";
+import { InputSearch } from "../Search/InputSearch";
+import "./index.css";
 
 export const Header: React.FC = () => {
     const { user } = useContext(UserContext);
