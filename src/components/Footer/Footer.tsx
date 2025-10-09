@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
                     <div className="flex flex-col xl:flex-row items-center xl:items-start justify-between gap-12 mb-12">
                         <div className="flex flex-col items-center xl:items-start text-center xl:text-left max-w-md">
                             <h2 className="text-4xl xl:text-5xl font-bold bg-gradient-to-r from-[#00ffff] to-[#00b4d8] bg-clip-text text-transparent mb-4">
-                                Simo Botlist
+                                Simo
                             </h2>
                             <p className="text-gray-400 text-lg leading-relaxed">
                                 Uma botlist para desenvolvedores que querem divulgar seu projeto.
