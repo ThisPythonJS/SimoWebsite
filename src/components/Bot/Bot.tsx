@@ -75,69 +75,67 @@ export const BotComponent: FC = () => {
                 </div>
             )}
 
-            <div className="flex flex-col items-center justify-center gap-8 my-10">
-                <div className="relative w-full overflow-hidden rounded-[2rem] border-2 border-white/10 shadow-2xl shadow-[#00b4d8]/10">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,255,255,0.1),transparent_70%)]"></div>
+            <div className="flex flex-col items-center justify-center gap-6 my-6">
+                <div className="relative w-full overflow-hidden rounded-3xl border border-white/10 shadow-2xl shadow-[#00b4d8]/10">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(0,255,255,0.08),transparent_70%)]"></div>
                     <div className="absolute inset-0 bg-gradient-to-br from-[#0a0e1a] via-[#0f1419] to-[#080c14]"></div>
-                    <div className="absolute top-0 right-0 w-96 h-96 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
-                    <div className="absolute bottom-0 left-0 w-96 h-96 bg-[#00ffff]/5 rounded-full blur-3xl"></div>
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-[#00ffff]/5 rounded-full blur-3xl"></div>
                     
-                    <div className="relative z-10 flex xl:flex-col items-center justify-between gap-10 p-12 xl:p-8">
-                        <div className="flex xl:flex-col items-center gap-8">
-                            <div className="relative group">
-                                <div className="absolute -inset-1 bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] rounded-[2rem] blur-xl opacity-60 group-hover:opacity-80 transition-all duration-500 animate-pulse"></div>
-                                <img
-                                    className="relative w-40 h-40 xl:w-36 xl:h-36 rounded-[2rem] border-4 border-[#00b4d8]/60 shadow-2xl group-hover:scale-105 transition-all duration-500"
-                                    onError={async ({ currentTarget }) => {
-                                        currentTarget.onerror = null;
-                                        currentTarget.src = (await import("../../assets/images/simo.png")).default;
-                                    }}
-                                    src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png?size=512`}
-                                    alt={botData.name}
-                                />
-                            </div>
-
-                            <div className="flex flex-col gap-4 xl:items-center xl:text-center">
-                                <div className="flex items-center gap-4 xl:flex-col">
-                                    <h1 className="text-6xl xl:text-5xl font-extrabold bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] bg-clip-text text-transparent drop-shadow-lg">
-                                        {botData.name}
-                                    </h1>
-                                    <CopyButton name="ID" text={botData.id} key={Math.random()}/>
-                                </div>
-
-                                <div className="flex items-center gap-3 bg-gradient-to-r from-amber-500/20 via-yellow-500/20 to-orange-500/20 backdrop-blur-xl px-6 py-3 rounded-full border-2 border-yellow-500/40 w-fit shadow-lg shadow-yellow-500/20">
-                                    {Array(stars).fill(0).map((_, index) => (
-                                        <icon.BsStarFill key={index} className="text-yellow-400 text-xl drop-shadow-md" />
-                                    ))}
-                                    {Array(5 - stars).fill(0).map((_, index) => (
-                                        <icon.BsStar key={index} className="text-gray-600 text-xl" />
-                                    ))}
-                                    <span className="text-yellow-400 font-bold text-lg ml-1">{stars}.0</span>
-                                </div>
-
-                                <p className="text-gray-300 text-xl xl:text-lg leading-relaxed max-w-2xl font-medium">
-                                    {botData.short_description}
-                                </p>
-                            </div>
+                    <div className="relative z-10 flex flex-col items-center text-center gap-6 p-8 xl:p-6">
+                        <div className="relative group">
+                            <div className="absolute -inset-1 bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] rounded-3xl blur-lg opacity-50 group-hover:opacity-70 transition-all duration-500 animate-pulse"></div>
+                            <img
+                                className="relative w-32 h-32 xl:w-28 xl:h-28 rounded-3xl border-3 border-[#00b4d8]/50 shadow-2xl group-hover:scale-105 transition-all duration-500"
+                                onError={async ({ currentTarget }) => {
+                                    currentTarget.onerror = null;
+                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                }}
+                                src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png?size=512`}
+                                alt={botData.name}
+                            />
                         </div>
 
-                        <div className="flex xl:flex-row gap-4 xl:w-full xl:justify-center">
+                        <div className="flex flex-col gap-3 items-center">
+                            <div className="flex items-center gap-3 flex-wrap justify-center">
+                                <h1 className="text-4xl xl:text-3xl font-black bg-gradient-to-r from-[#00ffff] via-[#00d4ff] to-[#00b4d8] bg-clip-text text-transparent">
+                                    {botData.name}
+                                </h1>
+                                <CopyButton name="ID" text={botData.id} key={Math.random()}/>
+                            </div>
+
+                            <div className="flex items-center gap-2 bg-gradient-to-r from-amber-500/15 via-yellow-500/15 to-orange-500/15 backdrop-blur-xl px-4 py-2 rounded-full border border-yellow-500/30 shadow-lg shadow-yellow-500/10">
+                                {Array(stars).fill(0).map((_, index) => (
+                                    <icon.BsStarFill key={index} className="text-yellow-400 text-base" />
+                                ))}
+                                {Array(5 - stars).fill(0).map((_, index) => (
+                                    <icon.BsStar key={index} className="text-gray-600 text-base" />
+                                ))}
+                                <span className="text-yellow-400 font-bold text-sm ml-1">{stars}.0</span>
+                            </div>
+
+                            <p className="text-gray-400 text-base leading-relaxed max-w-2xl">
+                                {botData.short_description}
+                            </p>
+                        </div>
+
+                        <div className="flex flex-row gap-3 w-full max-w-md">
                             <Link
-                                className="group relative overflow-hidden border-2 border-[#00ffff]/50 bg-gradient-to-br from-[#00ffff]/20 via-[#00d4ff]/15 to-[#00b4d8]/20 text-white font-bold transition-all duration-300 px-10 py-5 rounded-2xl min-w-[180px] text-center hover:scale-110 hover:shadow-2xl hover:shadow-[#00ffff]/40 active:scale-95 hover:border-[#00ffff]/80"
+                                className="group relative overflow-hidden border-2 border-[#00ffff]/40 bg-gradient-to-br from-[#00ffff]/15 via-[#00d4ff]/10 to-[#00b4d8]/15 text-white font-bold transition-all duration-300 px-6 py-3 rounded-xl flex-1 text-center hover:scale-105 hover:shadow-lg hover:shadow-[#00ffff]/30 active:scale-95 hover:border-[#00ffff]/60"
                                 to={`/vote/${botData.id}`}
                             >
-                                <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/20 to-[#00b4d8]/20 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
-                                <span className="relative z-10 flex items-center justify-center gap-3 text-lg">
-                                    <TiArrowSortedUp size={26} className="text-[#00ffff] drop-shadow-lg" />
+                                <div className="absolute inset-0 bg-gradient-to-r from-[#00ffff]/10 to-[#00b4d8]/10 translate-y-full group-hover:translate-y-0 transition-transform duration-500"></div>
+                                <span className="relative z-10 flex items-center justify-center gap-2 text-sm">
+                                    <TiArrowSortedUp size={20} className="text-[#00ffff]" />
                                     Votar
                                 </span>
                             </Link>
                             <Link
-                                className="group relative overflow-hidden border-2 border-white/30 bg-white/10 hover:bg-white/15 hover:border-white/50 text-white font-bold transition-all duration-300 px-10 py-5 rounded-2xl min-w-[180px] text-center hover:scale-110 hover:shadow-2xl hover:shadow-white/20 active:scale-95 backdrop-blur-sm"
+                                className="group relative overflow-hidden border-2 border-white/20 bg-white/5 hover:bg-white/10 hover:border-white/40 text-white font-bold transition-all duration-300 px-6 py-3 rounded-xl flex-1 text-center hover:scale-105 hover:shadow-lg hover:shadow-white/10 active:scale-95 backdrop-blur-sm"
                                 to={`https://discord.com/api/oauth2/authorize?client_id=${botData.id}`}
                             >
-                                <span className="relative z-10 flex items-center justify-center gap-3 text-lg">
-                                    <icon.BsPlus size={26} />
+                                <span className="relative z-10 flex items-center justify-center gap-2 text-sm">
+                                    <icon.BsPlus size={20} />
                                     Adicionar
                                 </span>
                             </Link>
@@ -145,10 +143,10 @@ export const BotComponent: FC = () => {
                     </div>
                 </div>
 
-                <div className="w-full grid lg:grid-cols-[1fr_420px] gap-8">
-                    <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border-2 border-white/10 rounded-[2rem] p-10 xl:p-8 shadow-2xl overflow-hidden">
-                        <div className="absolute top-0 right-0 w-64 h-64 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
-                        <div className="relative prose prose-invert prose-xl max-w-none">
+                <div className="w-full grid lg:grid-cols-[1fr_400px] xl:grid-cols-1 gap-6">
+                    <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border border-white/10 rounded-3xl p-6 xl:p-5 shadow-2xl overflow-hidden">
+                        <div className="absolute top-0 right-0 w-48 h-48 bg-[#00b4d8]/5 rounded-full blur-3xl"></div>
+                        <div className="relative prose prose-invert prose-base max-w-none">
                             <Markdown markdown={botData.long_description} />
                         </div>
                     </div>
@@ -271,9 +269,7 @@ export const BotComponent: FC = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
-
-                        {(botData.support_server || botData.source_code || botData.website_url) && (
+          {(botData.support_server || botData.source_code || botData.website_url) && (
                             <div className="relative bg-gradient-to-br from-[#0a0e1a]/95 via-[#0f1419]/95 to-[#0a0e1a]/95 backdrop-blur-xl border-2 border-white/10 rounded-[2rem] p-8 shadow-2xl overflow-hidden">
                                 <div className="absolute top-0 right-0 w-40 h-40 bg-[#00b4d8]/5 rounded-full blur-2xl"></div>
                                 <div className="relative flex items-center gap-4 mb-6">
