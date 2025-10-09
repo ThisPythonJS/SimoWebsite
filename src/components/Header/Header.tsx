@@ -6,7 +6,7 @@ import { NotificationButton } from "../Notification/Button";
 import { UserContext } from "../../contexts/UserContext";
 import { LoginMenu } from "../DropdownMenu/Menu";
 import { InputSearch } from "../../components/InputSearch";
-import "./index.css";
+import "../../index.css";
 
 export const Header: React.FC = () => {
     const { user } = useContext(UserContext);
@@ -22,7 +22,7 @@ export const Header: React.FC = () => {
                     <h1 className="font-boldonse text-gradient text-2xl tracking-wide leading-none">Simo</h1>
                     <span className="hidden sm:inline text-white/60 text-sm font-light mt-[2px]">botlist</span>
                 </Link>
-                
+
                 <div className="flex items-center gap-3">
                     <button
                         onClick={() => setSearchOpen(!searchOpen)}
@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
                     </button>
                     
                     <NotificationButton />
-                    
+
                     {user ? (
                         <LoginMenu />
                     ) : (
