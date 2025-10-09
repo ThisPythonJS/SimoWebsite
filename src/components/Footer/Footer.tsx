@@ -17,14 +17,6 @@ export const Footer: React.FC = () => {
                         </div>
                         <div className="flex flex-col xl:flex-row gap-12 xl:gap-20">
                             <div className="text-center xl:text-left">
-                                <h3 className="text-white font-semibold text-lg mb-4">Links Rápidos</h3>
-                                <ul className="space-y-3 text-gray-400">
-                                    <li><a href="/" className="hover:text-blue-400 transition-colors duration-300">Início</a></li>
-                                    <li><a href="/" className="hover:text-blue-400 transition-colors duration-300">Bots</a></li>
-                                    <li><a href="/addbot" className="hover:text-blue-400 transition-colors duration-300">Adicionar Bot</a></li>
-                                </ul>
-                            </div>
-                            <div className="text-center xl:text-left">
                                 <h3 className="text-white font-semibold text-lg mb-4">Comunidade</h3>
                                 <div className="flex gap-4 justify-center xl:justify-start">
                                     <a 
