@@ -84,7 +84,7 @@ export const FindBot: React.FC<{
                                         </div>
                                     </div>
                                     <div className="flex gap-3 flex-row-reverse">
-                                        <button onClick={() => setSteps(1)} className={`text-white ${buttonColor[color]} p-2 rounded-lg w-[160px] transition-colors duration-300 border-2`}>Próximo passo</button>
+                                        <button onClick={() => setSteps(1)} className={`text-white ${buttonColor[color]} p-2 rounded-lg w-[160px] transition-colors duration-300 border-2`}>Próximo paço</button>
                                         <button onClick={() => window.location.reload()} className={`text-white ${buttonColor[color]} p-2 rounded-lg w-[160px] transition-colors duration-300 border-2`}>Trocar ID</button>
                                     </div>
                                 </div>
