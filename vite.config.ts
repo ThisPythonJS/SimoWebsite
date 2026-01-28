@@ -7,9 +7,9 @@ export default defineConfig({
         port: 8080,
         proxy: {
             "/api": {
-                target: "http://simoapi:3333",
+                target: "https://api.simobotlist.online",
                 changeOrigin: true,
-                secure: false,
+                secure: true,
                 ws: true,
             },
         },
