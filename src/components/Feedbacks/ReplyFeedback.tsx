@@ -5,7 +5,7 @@ import { borderColor } from "../../utils/theme/border";
 import * as iconAI from "react-icons/ai";
 import * as icon from "react-icons/bs";
 import { buttonColor } from "../../utils/theme/button";
-import simo from "../../assets/images/simo.png";
+import { SIMO_LOGO } from "../../utils/constants";
 import moment from "moment";
 import "moment/dist/locale/pt-br";
 
@@ -77,7 +77,7 @@ export const ReplyFeedbackCard: FC<{
                     <div className="flex flex-col gap-3 h-42 items-center justify-center">
                         <img onError={async ({ currentTarget }) => {
                             currentTarget.onerror = null;
-                            currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                            currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                         }} className="rounded-full w-8" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} />
                         <div className="h-full py-3 bg-neutral-800 rounded-lg w-1" />
                     </div>
@@ -100,7 +100,7 @@ export const ReplyFeedbackCard: FC<{
                                 className="w-[30px] h-[30px] rounded-full"
                                 onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = simo;
+                                    currentTarget.src = SIMO_LOGO;
                                 }}
                             />
                             <span className="p-1 ml-1">{user.username}</span>
@@ -130,7 +130,7 @@ export const ReplyFeedbackCard: FC<{
                             <div className="flex flex-col gap-3 h-42 items-center justify-center">
                                 <img onError={async ({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                 }} className="rounded-full w-8" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} />
                                 <div className="h-full py-3 bg-neutral-800 rounded-lg w-1" />
                             </div>

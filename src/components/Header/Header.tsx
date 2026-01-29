@@ -6,7 +6,7 @@ import * as iconMD from "react-icons/md";
 import * as iconBS from "react-icons/bi";
 import * as iconHi from "react-icons/hi2";
 import api from "../../utils/api";
-import simoLogo from "../../assets/images/simo-logo.png";
+const simoLogo = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
 
 export const Header: React.FC = () => {
     const { user } = useContext(UserContext);

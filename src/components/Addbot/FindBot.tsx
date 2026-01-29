@@ -76,7 +76,7 @@ export const FindBot: React.FC<{
                                     <div className={`bg-neutral-800 flex p-2 xl:w-full h-[110px] items-center justify-center gap-3 rounded-lg border-2 ${borderColor[color]}`}>
                                         <img className="rounded-full w-[80px]" src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png`} onError={async ({ currentTarget }) => {
                                             currentTarget.onerror = null;
-                                            currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                            currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                         }} alt={`${botData.username}'s Avatar`} />
                                         <div className="flex xl:flex-col gap-2 text-white">
                                             <span><strong>{botData.username}</strong></span>

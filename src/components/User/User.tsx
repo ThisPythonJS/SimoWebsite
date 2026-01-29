@@ -6,7 +6,7 @@ import { ThemeContext } from "../../contexts/ThemeContext";
 import { borderColor } from "../../utils/theme/border";
 import { BotCard } from "../BotList/BotCard";
 import { UserLoading } from "./UserLoading";
-import simo from "../../assets/images/simo.png";
+import { SIMO_LOGO } from "../../utils/constants";
 import { CopyButton } from "../Mixed/Copy";
 import { Badges } from "../Badges/Badges";
 
@@ -49,7 +49,7 @@ export const User: React.FC = () => {
                             <img
                                 onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = simo;
+                                    currentTarget.src = SIMO_LOGO;
                                 }}
                                 className="rounded-full w-32" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
                                 alt={`${user.username}'s Avatar`}

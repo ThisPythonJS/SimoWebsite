@@ -53,7 +53,7 @@ export const DeleteTeam: FC<{
                 <div className="flex flex-row justify-center gap-2 mt-2">
                     <img onError={async ({ currentTarget }) => {
                         currentTarget.onerror = null;
-                        currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                        currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                     }} className="w-16 h-16 rounded-full" src={team.avatar_url} />
                     <div className="flex flex-col justify-center items-center">
                         <span className="font-bold text-lg">{team.name}</span>

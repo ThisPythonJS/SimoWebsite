@@ -16,7 +16,7 @@ import { TeamAddbot } from "./Addbot";
 import { AuditLogs } from "./AuditLogs";
 import { scrollBar } from "../../utils/theme/scrollBar";
 import { TeamManageBots } from "./ManageBots";
-import simo from "../../assets/images/simo.png";
+import { SIMO_LOGO } from "../../utils/constants";
 import { EditTeam } from "./EditTeam";
 import Translate from "translate";
 import { CopyButton } from "../Mixed/Copy";
@@ -117,7 +117,7 @@ export const ManageTeamComponent: FC = () => {
                             <div>
                                 <img onError={({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = simo;
+                                    currentTarget.src = SIMO_LOGO;
                                 }}
                                     className="rounded-full w-32 h-32 object-center" src={editActions.avatar_url} />
                             </div>
@@ -140,7 +140,7 @@ export const ManageTeamComponent: FC = () => {
                                             <img
                                                 onError={async ({ currentTarget }) => {
                                                     currentTarget.onerror = null;
-                                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                                 }}
                                                 className="rounded-full w-10"
                                                 src={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png?size=2048`}

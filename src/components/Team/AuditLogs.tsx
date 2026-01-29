@@ -28,7 +28,7 @@ export const AuditLogs: FC<{ logs: AuditLogStructure | undefined }> = ({ logs })
                             <Link to={`/user/${log.executor.id}`}>
                                 <img onError={async ({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                 }} className="rounded-full w-12 h-12 flex-shrink-0" src={`https://cdn.discordapp.com/avatars/${log.executor.id}/${log.executor.avatar}.png`} />
                             </Link>
                             <div className="flex flex-col gap-1 flex-grow">

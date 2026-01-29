@@ -5,7 +5,7 @@ import api from "../../utils/api";
 import { BotCard } from "./BotCard";
 import { Link } from "react-router-dom";
 import * as iconHi from "react-icons/hi2";
-import simoLogo from "../../assets/images/simo-logo.png";
+const simoLogo = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
 
 export const Bots: React.FC = () => {
     const [data, setData] = useState<BotStructure[]>([]);

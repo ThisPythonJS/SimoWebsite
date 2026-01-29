@@ -4,7 +4,7 @@ import { BotStructure, Team } from "../../types";
 import { ThemeContext } from "../../contexts/ThemeContext";
 import { borderColor } from "../../utils/theme/border";
 import { BotCard } from "../BotList/BotCard";
-import simo from "../../assets/images/simo.png";
+import { SIMO_LOGO } from "../../utils/constants";
 import api from "../../utils/api";
 import * as icon from "react-icons/bi";
 import { UserLoading } from "../User/UserLoading";
@@ -59,7 +59,7 @@ export const TeamComponent: React.FC = () => {
                     <div>
                         <img onError={({ currentTarget }) => {
                             currentTarget.onerror = null;
-                            currentTarget.src = simo;
+                            currentTarget.src = SIMO_LOGO;
                         }}
                             className="rounded-full w-32 h-32 object-center" src={team.avatar_url} />
                     </div>
@@ -94,7 +94,7 @@ export const TeamComponent: React.FC = () => {
                                     <img
                                         onError={async ({ currentTarget }) => {
                                             currentTarget.onerror = null;
-                                            currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                            currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                         }}
                                         className="rounded-full w-10"
                                         src={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png?size=2048`}

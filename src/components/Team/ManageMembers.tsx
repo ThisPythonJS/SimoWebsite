@@ -166,7 +166,7 @@ export const ManageMembers: FC<{ updateAuditLogs: () => Promise<void> }> = ({ up
                             <div className="flex items-center xl:flex-col justify-start gap-3 w-full flex-grow">
                                 <img onError={async ({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                 }} className="rounded-full w-20" src={`https://cdn.discordapp.com/avatars/${selectedMember.id}/${selectedMember.avatar}.png`} />
                                 <div className="flex flex-col gap-1 xl:text-center">
                                     <div className="flex gap-2 items-center xl:flex-col">
@@ -202,7 +202,7 @@ export const ManageMembers: FC<{ updateAuditLogs: () => Promise<void> }> = ({ up
                             <button onClick={() => setSelectedMember(member)} className={`${member.id === selectedMember?.id ? "bg-neutral-700" : "bg-neutral-800"} flex transition duration-300 hover:bg-neutral-700 items-center p-3 rounded-lg gap-2`} key={member.id}>
                                 <img onError={async ({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                 }} className="rounded-full w-12 h-12" src={`https://cdn.discordapp.com/avatars/${member.id}/${member.avatar}.png`} />
                                 <div className="flex gap-3 flex-wrap">
                                     <span className="text-xl">{member.username}</span>

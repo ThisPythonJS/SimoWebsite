@@ -65,7 +65,7 @@ export const DeleteBot: FC<{
                 <div className="flex flex-row justify-center gap-2 mt-2">
                     <img onError={async ({ currentTarget }) => {
                         currentTarget.onerror = null;
-                        currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                        currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                     }} className="w-16 h-16 rounded-full" src={`https://cdn.discordapp.com/avatars/${bot.id}/${bot.avatar}.png?size=2048`} alt={`${bot.name}'s avatar`} />
                     <div className="flex flex-col justify-start items-start">
                         <span className="font-bold text-lg">{bot.name}</span>

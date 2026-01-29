@@ -8,7 +8,7 @@ import * as iconAI from "react-icons/ai";
 import api from "../../utils/api";
 import { Teams } from "../Team/Teams";
 import { UserLoading } from "../User/UserLoading";
-import simo from "../../assets/images/simo.png";
+import { SIMO_LOGO } from "../../utils/constants";
 import { DashboardBot } from "./Bot";
 
 export const DashboardComponent: FC = () => {
@@ -91,7 +91,7 @@ export const DashboardComponent: FC = () => {
                         <img
                             onError={({ currentTarget }) => {
                                 currentTarget.onerror = null;
-                                currentTarget.src = simo;
+                                currentTarget.src = SIMO_LOGO;
                             }}
                             className="rounded-full w-32" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
                             alt={`${user.username}'s Avatar`}

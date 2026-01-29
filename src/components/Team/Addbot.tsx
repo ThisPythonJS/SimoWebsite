@@ -71,7 +71,7 @@ export const TeamAddbot: FC<{ team?: Team }> = ({ team }) => {
                                     <div className="flex gap-2 items-center justify-start w-full">
                                         <img onError={async ({ currentTarget }) => {
                                             currentTarget.onerror = null;
-                                            currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                            currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                         }} className="rounded-full w-12 h-12" src={`https://cdn.discordapp.com/avatars/${bot.id}/${bot.avatar}.png`} />
                                         <div className="flex gap-2 items-center flex-wrap">
                                             <span className="text-lg font-bold">{bot.name}</span>
@@ -92,7 +92,7 @@ export const TeamAddbot: FC<{ team?: Team }> = ({ team }) => {
                                     <div className="flex gap-2 items-center">
                                         <img onError={async ({ currentTarget }) => {
                                             currentTarget.onerror = null;
-                                            currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                            currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                         }} className="rounded-full w-12" src={`https://cdn.discordapp.com/avatars/${selectedBot.id}/${selectedBot.avatar}.png`} />
                                         <div className="flex gap-2 flex-col">
                                             <span className="font-bold text-lg">{selectedBot.name}</span>

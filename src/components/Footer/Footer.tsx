@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import * as iconBs from "react-icons/bs";
 import * as iconHi from "react-icons/hi2";
-import simoLogo from "../../assets/images/simo-logo.png";
+const simoLogo = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
 
 export const Footer: React.FC = () => {
     return (

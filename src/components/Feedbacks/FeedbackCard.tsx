@@ -7,7 +7,7 @@ import * as iconAI from "react-icons/ai";
 import { UserContext } from "../../contexts/UserContext";
 import api from "../../utils/api";
 import { buttonColor } from "../../utils/theme/button";
-import simo from "../../assets/images/simo.png";
+import { SIMO_LOGO } from "../../utils/constants";
 import { Link } from "react-router-dom";
 import moment from "moment";
 import "moment/dist/locale/pt-br";
@@ -113,7 +113,7 @@ export const FeedbackCard: React.FC<{
                             className="w-[30px] h-[30px] rounded-full"
                             onError={({ currentTarget }) => {
                                 currentTarget.onerror = null;
-                                currentTarget.src = simo;
+                                currentTarget.src = SIMO_LOGO;
                             }}
                         />
                         <div className="flex gap-2 items-center min-w-[150px]">
@@ -180,7 +180,7 @@ export const FeedbackCard: React.FC<{
                             <div className="flex flex-col gap-3 h-42 items-center justify-center">
                                 <img onError={async ({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                 }} className="rounded-full w-8" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} />
                                 <div className="h-full py-3 bg-neutral-800 rounded-lg w-1" />
                             </div>
@@ -203,7 +203,7 @@ export const FeedbackCard: React.FC<{
                                         className="w-[30px] h-[30px] rounded-full"
                                         onError={({ currentTarget }) => {
                                             currentTarget.onerror = null;
-                                            currentTarget.src = simo;
+                                            currentTarget.src = SIMO_LOGO;
                                         }}
                                     />
                                     <div className="flex gap-2 items-center">
@@ -239,7 +239,7 @@ export const FeedbackCard: React.FC<{
                         <div className="flex flex-col gap-3 h-42 items-center justify-center">
                             <img onError={async ({ currentTarget }) => {
                                 currentTarget.onerror = null;
-                                currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                             }} className="rounded-full w-8" src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} />
                             <div className="h-full py-3 bg-neutral-800 rounded-lg w-1" />
                         </div>

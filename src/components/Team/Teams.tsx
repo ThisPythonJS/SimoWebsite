@@ -3,7 +3,7 @@ import { Team } from "../../types";
 import { Button } from "../Mixed/Button";
 import { Link } from "react-router-dom";
 import * as icon from "react-icons/bs";
-import simo from "../../assets/images/simo.png";
+import { SIMO_LOGO } from "../../utils/constants";
 
 export const Teams: FC<{
     teams: Team[] | undefined
@@ -20,7 +20,7 @@ export const Teams: FC<{
                                 <div className="flex flex-row gap-4 xl:w-full xl:justify-start px-2 items-center justify-start">
                                     <img className="w-24 rounded-full h-24 object-center" src={team.avatar_url} onError={({ currentTarget }) => {
                                         currentTarget.onerror = null;
-                                        currentTarget.src = simo;
+                                        currentTarget.src = SIMO_LOGO;
                                     }} />
                                     <div className="flex flex-col justify-start items-start">
                                         <span className="text-lg font-bold">{team.name}</span>

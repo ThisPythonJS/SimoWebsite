@@ -3,7 +3,7 @@ import React, { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
 import api from "../../utils/api";
 import * as iconHi from "react-icons/hi2";
-import simoLogo from "../../assets/images/simo-logo.png";
+const simoLogo = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
 
 export const Mobilemenu: React.FC = () => {
     const { user } = useContext(UserContext);

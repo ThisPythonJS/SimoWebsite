@@ -92,7 +92,7 @@ export const VoteComponent: React.FC = () => {
                             <img
                                 onError={async ({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                 }}
                                 className="w-[100px] rounded-full"
                                 src={`https://cdn.discordapp.com/avatars/${botData.id}/${botData.avatar}.png?size=2048`}

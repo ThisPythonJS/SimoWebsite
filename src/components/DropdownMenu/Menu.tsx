@@ -52,7 +52,7 @@ export const LoginMenu: React.FC = () => {
                             <div className="h-[30px] w-[30px] flex items-start">
                                 <img onError={async ({ currentTarget }) => {
                                     currentTarget.onerror = null;
-                                    currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                    currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                 }} src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} className="w-full h-full rounded-full" alt="Avatar" />
                             </div>
                             <div className="flex flex-reverse-row break-before-all items-center justify-center">

@@ -222,7 +222,7 @@ export const DashboardEdit: React.FC = () => {
                             alt={bot.name + "'s Avatar"}
                             onError={async ({ currentTarget }) => {
                                 currentTarget.onerror = null;
-                                currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                             }}
                         />
                         <div className="flex flex-col w-full justify-center gap-2">
@@ -324,7 +324,7 @@ export const DashboardEdit: React.FC = () => {
                                         <Link to={`/user/${dev?.id}`} className="bg-neutral-900 border-2 border-neutral-700 p-2 rounded-lg flex flex-row flex-wrap justify-center xl:flex-col items-center gap-4 transition-colors duration-300 hover:bg-neutral-800">
                                             <img onError={async ({ currentTarget }) => {
                                                 currentTarget.onerror = null;
-                                                currentTarget.src = (await import("../../assets/images/simo.png")).default;
+                                                currentTarget.src = "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/simo.png-wQfR3Tsf6ul3BMkEA9IXy4QBjoCqeZ.webp";
                                             }} className="rounded-full h-[60px] w-[60px]" src={`https://cdn.discordapp.com/avatars/${dev?.id}/${dev?.avatar}.png?size=2048`} alt={`${dev?.username}'s Avatar`} />
                                             <span className="text-center">{dev?.username}</span>
                                         </Link>
