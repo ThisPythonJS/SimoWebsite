@@ -1,72 +1,189 @@
-import { Link } from "react-router-dom";
-import React, { useContext, useEffect, useState } from "react";
-import { UserStructure } from "../../types";
+import { Link, useLocation } from "react-router-dom";
+import React, { useContext, useState } from "react";
 import { UserContext } from "../../contexts/UserContext";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import api from "../../utils/api";
-import { mobileMenu } from "../../utils/theme/mobileMenu";
-import * as icon from "react-icons/bi";
-import * as iconMD from "react-icons/md";
-import simo from "../../assets/images/simo.png";
-import { borderColor } from "../../utils/theme/border";
+import * as iconHi from "react-icons/hi2";
+import simoLogo from "../../assets/images/simo-logo.png";
 
 export const Mobilemenu: React.FC = () => {
     const { user } = useContext(UserContext);
-    const { color } = useContext(ThemeContext);
-
-    const page = location.href.split("/")[3];
-
-    const [click, setClick] = useState<boolean>(false);
-    const [selPage, setSelPage] = useState<string>(page);
+    const location = useLocation();
     const [profileMenu, setProfileMenu] = useState<boolean>(false);
 
-    useEffect(() => {
-        setSelPage(page);
-    }, [click]);
+    const isActive = (path: string) => location.pathname === path;
 
     return (
-        <div className={`hidden xl:fixed xl:bottom-0 xl:left-0 xl:w-full transition-colors duration-300 ${mobileMenu[color]} xl:text-white xl:py-3 xl:flex xl:justify-around xl:items-center`}>
-            <>
-                <section className="flex flex-row w-full items-center">
-                    <Link onClick={() => setClick(!click)} to="/notifications" className="flex flex-grow justify-center">
-                        {selPage === "notifications" ? <icon.BiSolidBell size={25} /> : <icon.BiBell size={25} />}
-                    </Link>
-                    <Link onClick={() => setClick(!click)} to="/addbot" className="flex flex-grow justify-center">
-                        {selPage === "addbot" ? <icon.BiPlusMedical size={25} /> : <icon.BiPlus size={25} />}
-                    </Link>
-                    <Link onClick={() => setClick(!click)} to="/themes" className="flex flex-grow justify-center">
-                        {selPage === "themes" ? <icon.BiSolidPalette size={25} /> : <icon.BiPalette size={25} />}
-                    </Link>
+        <>
+            {/* Profile Menu Overlay */}
+            {profileMenu && (
+                <div 
+                    className="hidden xl:fixed xl:inset-0 xl:bg-black/50 xl:z-40"
+                    onClick={() => setProfileMenu(false)}
+                ></div>
+            )}
+
+            {/* Profile Popup Menu */}
+            <div className={`hidden xl:block fixed bottom-20 right-4 z-50 transition-all duration-300 ${
+                profileMenu 
+                    ? 'opacity-100 translate-y-0 visible' 
+                    : 'opacity-0 translate-y-4 invisible'
+            }`}>
+                <div className="bg-dark-card border border-dark-border rounded-2xl p-3 shadow-xl w-56">
                     {user ? (
-                        <button onClick={() => setProfileMenu(!profileMenu)} className="flex flex-grow justify-center">
-                            <img className="w-7 rounded-full" onError={({ currentTarget }) => {
-                                currentTarget.onerror = null;
-                                currentTarget.src = simo;
-                            }} src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`} />
-                        </button>
+                        <>
+                            <div className="p-3 border-b border-dark-border mb-2">
+                                <div className="flex items-center gap-3">
+                                    <img 
+                                        onError={({ currentTarget }) => {
+                                            currentTarget.onerror = null;
+                                            currentTarget.src = simoLogo;
+                                        }}
+                                        src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
+                                        className="w-10 h-10 rounded-full"
+                                        alt="Avatar"
+                                    />
+                                    <div>
+                                        <p className="font-semibold text-white text-sm">{user.username}</p>
+                                        <p className="text-xs text-text-muted">Membro</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <Link 
+                                to="/dashboard" 
+                                onClick={() => setProfileMenu(false)}
+                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-dark-elevated transition-colors text-text-secondary hover:text-white"
+                            >
+                                <iconHi.HiUser size={18} />
+                                <span className="text-sm">Meu Perfil</span>
+                            </Link>
+                            <Link 
+                                to={`/user/${user.id}`}
+                                onClick={() => setProfileMenu(false)}
+                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-dark-elevated transition-colors text-text-secondary hover:text-white"
+                            >
+                                <iconHi.HiEye size={18} />
+                                <span className="text-sm">Ver Perfil</span>
+                            </Link>
+                            <div className="border-t border-dark-border mt-2 pt-2">
+                                <button 
+                                    onClick={async () => {
+                                        await api.logoutUser();
+                                        window.location.reload();
+                                    }}
+                                    className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-red-500/10 transition-colors text-red-400 hover:text-red-300 w-full"
+                                >
+                                    <iconHi.HiArrowRightOnRectangle size={18} />
+                                    <span className="text-sm">Sair</span>
+                                </button>
+                            </div>
+                        </>
                     ) : (
-                        <Link to={import.meta.env.VITE_AUTH_LINK} className="flex flex-grow justify-center">
-                            <iconMD.MdLogin size={25} />
+                        <Link 
+                            to={import.meta.env.VITE_AUTH_LINK || '/login'}
+                            onClick={() => setProfileMenu(false)}
+                            className="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors text-primary-light w-full"
+                        >
+                            <iconHi.HiUser size={18} />
+                            <span className="text-sm font-medium">Fazer Login</span>
                         </Link>
                     )}
-                </section>
-                <div className={`${profileMenu ? "visibile opacity-100" : "invisible opacity-0"} bottom-14 right-1 transition-opacity duration-300 absolute bg-neutral-900 rounded-lg border-2 ${borderColor[color]} p-4 px-5`}>
-                    <div className="flex flex-col gap-4">
-                        <Link onClick={() => setClick(!click)} className="flex gap-2" to="/dashboard">
-                            <iconMD.MdPerson size={25} />
-                            <span>Perfil</span>
+                </div>
+            </div>
+
+            {/* Bottom Navigation Bar */}
+            <div className="hidden xl:fixed xl:bottom-0 xl:left-0 xl:right-0 xl:z-40 xl:flex xl:justify-center xl:px-4 xl:pb-4">
+                <nav className="glass-strong w-full max-w-md rounded-2xl border border-dark-border px-2 py-2">
+                    <div className="flex items-center justify-around">
+                        <Link 
+                            to="/"
+                            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all flex-1 ${
+                                isActive('/') 
+                                    ? 'bg-primary/20 text-primary-light' 
+                                    : 'text-text-secondary hover:text-white'
+                            }`}
+                        >
+                            {isActive('/') ? (
+                                <iconHi.HiHome size={22} />
+                            ) : (
+                                <iconHi.HiOutlineHome size={22} />
+                            )}
+                            <span className="text-[10px] font-medium">Inicio</span>
                         </Link>
-                        <button onClick={async () => {
-                            await api.logoutUser();
-                            
-                            window.location.reload();
-                        }} className="flex gap-2">
-                            <iconMD.MdLogout size={25} />
-                            <span>Sair</span>
+
+                        <Link 
+                            to="/search"
+                            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all flex-1 ${
+                                isActive('/search') 
+                                    ? 'bg-primary/20 text-primary-light' 
+                                    : 'text-text-secondary hover:text-white'
+                            }`}
+                        >
+                            {isActive('/search') ? (
+                                <iconHi.HiMagnifyingGlass size={22} />
+                            ) : (
+                                <iconHi.HiOutlineMagnifyingGlass size={22} />
+                            )}
+                            <span className="text-[10px] font-medium">Buscar</span>
+                        </Link>
+
+                        <Link 
+                            to="/addbot"
+                            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all flex-1 ${
+                                isActive('/addbot') 
+                                    ? 'bg-primary/20 text-primary-light' 
+                                    : 'text-text-secondary hover:text-white'
+                            }`}
+                        >
+                            {isActive('/addbot') ? (
+                                <iconHi.HiPlusCircle size={22} />
+                            ) : (
+                                <iconHi.HiOutlinePlusCircle size={22} />
+                            )}
+                            <span className="text-[10px] font-medium">Adicionar</span>
+                        </Link>
+
+                        <Link 
+                            to="/notifications"
+                            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all flex-1 ${
+                                isActive('/notifications') 
+                                    ? 'bg-primary/20 text-primary-light' 
+                                    : 'text-text-secondary hover:text-white'
+                            }`}
+                        >
+                            {isActive('/notifications') ? (
+                                <iconHi.HiBell size={22} />
+                            ) : (
+                                <iconHi.HiOutlineBell size={22} />
+                            )}
+                            <span className="text-[10px] font-medium">Alertas</span>
+                        </Link>
+
+                        <button 
+                            onClick={() => setProfileMenu(!profileMenu)}
+                            className={`flex flex-col items-center gap-1 p-2 rounded-xl transition-all flex-1 ${
+                                profileMenu 
+                                    ? 'bg-primary/20 text-primary-light' 
+                                    : 'text-text-secondary hover:text-white'
+                            }`}
+                        >
+                            {user ? (
+                                <img 
+                                    className="w-6 h-6 rounded-full ring-2 ring-transparent group-hover:ring-primary/30"
+                                    onError={({ currentTarget }) => {
+                                        currentTarget.onerror = null;
+                                        currentTarget.src = simoLogo;
+                                    }} 
+                                    src={`https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`}
+                                    alt="Avatar"
+                                />
+                            ) : (
+                                <iconHi.HiOutlineUser size={22} />
+                            )}
+                            <span className="text-[10px] font-medium">Perfil</span>
                         </button>
                     </div>
-                </div>
-            </>
-        </div>
+                </nav>
+            </div>
+        </>
     );
 };

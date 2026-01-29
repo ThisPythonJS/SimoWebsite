@@ -1,15 +1,11 @@
 import { FC, useContext, useEffect, useRef, useState } from "react";
-import * as icon from "react-icons/bs";
+import * as iconHi from "react-icons/hi2";
 import { ThemeContext } from "../../contexts/ThemeContext";
-import { borderColor } from "../../utils/theme/border";
 import { UserContext } from "../../contexts/UserContext";
 import { NotificationStructure } from "../../types";
-import { AxiosResponse } from "axios";
 import api from "../../utils/api";
 import * as iconAI from "react-icons/ai";
 import { NotificationCard } from "./Card";
-import { scrollBar } from "../../utils/theme/scrollBar";
-import { buttonColor } from "../../utils/theme/button";
 import { Link } from "react-router-dom";
 
 export const NotificationButton: FC = () => {
@@ -25,11 +21,8 @@ export const NotificationButton: FC = () => {
 
     const getNotifications = async () => {
         setIsLoading(true);
-
         const { data } = await api.getNotifications();
-
         setNotifications(data);
-
         setIsLoading(false);
     };
 
@@ -39,9 +32,7 @@ export const NotificationButton: FC = () => {
                 setIsOpen(false);
             }
         }
-
         document.addEventListener("mousedown", handleClickOutside);
-
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
@@ -55,61 +46,91 @@ export const NotificationButton: FC = () => {
     }, [user, isOpen]);
 
     return user && (
-        (
-            <section ref={menuRef} className={`${!user && "invisible"}`}>
-                {!viewedNotifications && <div className="h-3 w-3 bg-red-500 absolute rounded-lg xl:hidden" />}
-                <button onClick={async () => {
+        <section ref={menuRef} className={`${!user && "invisible"} xl:hidden`}>
+            <button 
+                onClick={async () => {
                     setIsOpen(!isOpen);
-
                     if (!user.notifications_viewed) {
                         await api.patchUser({ notifications_viewed: true });
                         setViewedNotifications(true);
                     }
-                }} className={`xl:invisible ${borderColor[color]} mr-1 flex border-2 p-3 items-center justify-center rounded-lg bg-neutral-900 h-[50px]`}>
-                    <icon.BsBell fill="#fff" />
-                </button>
-                <div className={`${isOpen ? "opacity-100" : "opacity-0 invisible"} ${scrollBar[color]} p-3 xl:invisible overflow-auto flex-col flex text-white rounded-lg absolute right-[209px] max-h-[300px] w-[500px] top-16 origin-top-right bg-neutral-900 border-2 transition-all duration-300 ${borderColor[color]}`}>
-                    {isLoading ? (
-                        <div className="flex flex-col gap-3 xl:invisible">
-                            <h1 className="text-[22px] text-center my-1"><strong>Suas notificações</strong></h1>
-                            <div className="w-full bg-neutral-800 animate-pulse h-[70px] rounded-lg"></div>
-                            <div className="w-full bg-neutral-800 animate-pulse h-[50px] rounded-lg"></div>
-                            <div className="w-full bg-neutral-800 animate-pulse h-[66px] rounded-lg"></div>
+                }} 
+                className="relative p-2.5 rounded-xl bg-dark-elevated border border-dark-border hover:border-primary/30 transition-all"
+            >
+                {!viewedNotifications && (
+                    <div className="absolute -top-1 -right-1 h-3 w-3 bg-red-500 rounded-full border-2 border-dark-elevated" />
+                )}
+                <iconHi.HiBell className="text-text-secondary hover:text-white transition-colors" size={18} />
+            </button>
+            
+            <div className={`${isOpen ? "opacity-100 translate-y-0 visible" : "opacity-0 -translate-y-2 invisible"} 
+                absolute right-20 top-[70px] w-[400px] max-h-[400px] 
+                bg-dark-card border border-dark-border rounded-xl shadow-xl 
+                transition-all duration-300 overflow-hidden`}
+            >
+                {isLoading ? (
+                    <div className="p-4 space-y-3">
+                        <h2 className="text-lg font-bold text-white text-center">Notificacoes</h2>
+                        <div className="w-full bg-dark-elevated animate-pulse h-16 rounded-lg"></div>
+                        <div className="w-full bg-dark-elevated animate-pulse h-12 rounded-lg"></div>
+                        <div className="w-full bg-dark-elevated animate-pulse h-14 rounded-lg"></div>
+                    </div>
+                ) : (
+                    <div>
+                        <div className="p-4 border-b border-dark-border">
+                            <h2 className="text-lg font-bold text-white text-center">Notificacoes</h2>
                         </div>
-                    ) : (
-                        <div>
-                            <h1 className="text-[22px] text-center my-1"><strong>Suas notificações</strong></h1>
-                            {user.notifications && Object.keys(notifications).length > 0 ? (
-                                <>
-                                    <div className="flex flex-col my-3 gap-3 xl:invisible">
-                                        {Object.keys(notifications).map((key, index) => (
-                                            <NotificationCard updateNotifications={getNotifications} user={user} notification={notifications[key]} key={index} keyc={key} color={color} />
-                                        ))}
-                                    </div>
-                                    <Link className="text-blue-500 underline hover:text-blue-600 transition-colors flex items-center justify-center mb-3" to="/notifications">
-                                        <span>Página de notificações</span>
+                        
+                        {user.notifications && Object.keys(notifications).length > 0 ? (
+                            <>
+                                <div className="max-h-[250px] overflow-y-auto p-3 space-y-2">
+                                    {Object.keys(notifications).map((key, index) => (
+                                        <NotificationCard 
+                                            updateNotifications={getNotifications} 
+                                            user={user} 
+                                            notification={notifications[key]} 
+                                            key={index} 
+                                            keyc={key} 
+                                            color={color} 
+                                        />
+                                    ))}
+                                </div>
+                                <div className="p-3 border-t border-dark-border space-y-2">
+                                    <Link 
+                                        to="/notifications" 
+                                        className="block text-center text-primary-light hover:text-primary text-sm transition-colors"
+                                    >
+                                        Ver todas as notificacoes
                                     </Link>
-                                    <div className="flex flex-row gap-2 items-center justify-center">
-                                        <button onClick={async () => {
+                                    <button 
+                                        onClick={async () => {
                                             setBulkLoading(true);
-
                                             await api.deleteAllNotifications(user?.id);
                                             await getNotifications();
-
                                             setBulkLoading(false);
-                                        }} className={`text-center ${buttonColor[color]} duration-300 transition-colors p-3 rounded-lg border-2 w-full`}>Limpar notificações</button>
-                                        {bulkLoading && <iconAI.AiOutlineLoading3Quarters fill="#fff" size={25} className="animate-spin" />}
-                                    </div>
-                                </>
-                            ) : (
-                                <div className="w-full text-center text-[20px] flex items-center justify-center my-3">
-                                    <span>Você não tem notificações.</span>
+                                        }} 
+                                        className="w-full flex items-center justify-center gap-2 px-4 py-2 rounded-lg bg-dark-elevated hover:bg-dark-card-hover border border-dark-border text-text-secondary hover:text-white transition-all text-sm"
+                                    >
+                                        {bulkLoading ? (
+                                            <iconAI.AiOutlineLoading3Quarters className="animate-spin" size={16} />
+                                        ) : (
+                                            <>
+                                                <iconHi.HiTrash size={16} />
+                                                <span>Limpar notificacoes</span>
+                                            </>
+                                        )}
+                                    </button>
                                 </div>
-                            )}
-                        </div>
-                    )}
-                </div>
-            </section>
-        )
+                            </>
+                        ) : (
+                            <div className="p-8 text-center">
+                                <iconHi.HiBellSlash className="text-text-muted mx-auto mb-3" size={40} />
+                                <p className="text-text-secondary">Voce nao tem notificacoes.</p>
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
+        </section>
     )
 };

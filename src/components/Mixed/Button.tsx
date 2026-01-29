@@ -1,6 +1,3 @@
-import { useContext } from "react";
-import { buttonColor } from "../../utils/theme/button";
-import { ThemeContext } from "../../contexts/ThemeContext";
 import { Link } from "react-router-dom";
 
 export const Button: React.FC<{
@@ -11,12 +8,25 @@ export const Button: React.FC<{
     link?: boolean;
     to?: string
     disabled?: boolean;
-}> = ({ clas, action, children, type, link, to, disabled }) => {
-    const { color } = useContext(ThemeContext)
+    variant?: "primary" | "secondary" | "outline";
+}> = ({ clas, action, children, type, link, to, disabled, variant = "primary" }) => {
+    const baseStyles = "transition-all duration-300 text-white font-medium rounded-xl disabled:opacity-50 disabled:cursor-default";
+    
+    const variantStyles = {
+        primary: "bg-primary hover:bg-primary-light border border-primary-dark",
+        secondary: "bg-dark-elevated hover:bg-dark-card-hover border border-dark-border hover:border-primary/30",
+        outline: "bg-transparent hover:bg-primary/10 border border-dark-border hover:border-primary/30 text-text-secondary hover:text-white"
+    };
+    
+    const styles = `${baseStyles} ${variantStyles[variant]} ${clas || ""}`;
     
     return link ? (
-        <Link to={to || "/"} className={`${buttonColor[color]} border-2 transition-all duration-300 w-full text-white p-3 rounded-lg ${clas}`}>{children}</Link>
+        <Link to={to || "/"} className={`${styles} w-full p-3 text-center block`}>
+            {children}
+        </Link>
     ) : (
-        <button disabled={disabled} type={type} onClick={action} className={`${buttonColor[color]} border-2 transition-all duration-300 text-white p-3 rounded-lg disabled:opacity-50 disabled:cursor-default ${clas}`}>{children}</button>
-    )
+        <button disabled={disabled} type={type} onClick={action} className={`${styles} p-3`}>
+            {children}
+        </button>
+    );
 };

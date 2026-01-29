@@ -7,9 +7,6 @@ import { Mobilemenu } from "../components/Mobile/Mobilemenu";
 import { Bot } from "../pages/Bot/Bot";
 import { Vote } from "../pages/Bot/Vote";
 import { Tests } from "../pages/Mixed/Tests";
-import { useContext, useState } from "react";
-import { ThemeContext } from "../contexts/ThemeContext";
-import { appColor } from "../utils/theme/app";
 import { Search } from "../pages/Bot/Search";
 import { Footer } from "../components/Footer/Footer";
 import { User } from "../components/User/User";
@@ -25,12 +22,10 @@ import { Auth } from "../components/Mixed/Auth";
 import { Login } from "../pages/Login/Login";
 
 function App() {
-    const { color } = useContext(ThemeContext);
-
     return (
-        <main className={`xl:no-scrollbar xlr:h-1 flex flex-col items-center overflow-x-hidden min-h-screen ${appColor[color]} bg-fixed scrollbar-track-neutral-900 scrollbar-thin`}>
+        <main className="flex flex-col items-center overflow-x-hidden min-h-screen bg-dark-bg">
             <Header/>
-            <section className="flex flex-1 flex-col">
+            <section className="flex flex-1 flex-col w-full items-center">
                 <Routes>
                     <Route path="/testes" element={<Tests />} />
                     <Route path="/bot/:botid" element={<Bot />} />

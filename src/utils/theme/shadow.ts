@@ -1,9 +1,9 @@
 import { ThemeStructure } from '../../types';
 
 export const shadowColor: ThemeStructure = {
-    blue: "border-blue-500 shadow-blue-500",
-    green: "border-green-500 shadow-green-500",
-    red: "border-red-500 shadow-red-500",
-    purple: "border-purple-500 shadow-purple-500",
-    black: "border-white shadow-white"
+    blue: "border-primary shadow-primary/30",
+    green: "border-primary shadow-primary/30",
+    red: "border-primary shadow-primary/30",
+    purple: "border-primary shadow-primary/30",
+    black: "border-primary shadow-primary/30"
 };
